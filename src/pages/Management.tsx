@@ -1,44 +1,112 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { MOCK_POLLS } from '../mocks/data';
+import { supabase } from '../lib/supabase';
 
 const Management: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const poll = MOCK_POLLS.find(p => p.id === id);
-
+  
+  const [loading, setLoading] = useState(true);
+  const [poll, setPoll] = useState<any>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginInfo, setLoginInfo] = useState({ id: '', pw: '' });
-  const [editForm, setEditForm] = useState(poll ? {
-    title: poll.title,
-    question: poll.question || '',
-    optionA: poll.optionA,
-    optionB: poll.optionB,
-  } : { title: '', question: '', optionA: '', optionB: '' });
+  const [editForm, setEditForm] = useState({
+    title: '',
+    description: '',
+  });
 
-  if (!poll) return <div className="p-8 text-center font-bold text-penguin-black">투표를 찾을 수 없습니다.</div>;
+  useEffect(() => {
+    if (id) {
+      fetchPoll(id);
+    }
+  }, [id]);
+
+  const fetchPoll = async (pollId: string) => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('polls')
+        .select('*')
+        .eq('id', pollId)
+        .single();
+
+      if (error) throw error;
+      if (data) {
+        setPoll(data);
+        setEditForm({
+          title: data.title,
+          description: data.description || '',
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching poll:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginInfo.id === poll.creatorId && loginInfo.pw === poll.creatorPw) {
+    if (loginInfo.id === poll.admin_id && loginInfo.pw === poll.password) {
       setIsAuthenticated(true);
     } else {
-      alert('아이디 또는 비밀번호가 일치하지 않습니다.\n(힌트: ' + poll.creatorId + ' / ' + poll.creatorPw + ')');
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
     }
   };
 
-  const handleUpdate = (e: React.FormEvent) => {
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('성공적으로 수정되었습니다!');
-    navigate(`/poll/${poll.id}`);
-  };
+    setLoading(true);
+    try {
+      const { error } = await supabase
+        .from('polls')
+        .update({
+          title: editForm.title,
+          description: editForm.description,
+        })
+        .eq('id', poll.id);
 
-  const handleDelete = () => {
-    if (window.confirm('정말로 이 투표를 삭제하시겠습니까?')) {
-      alert('삭제되었습니다!');
-      navigate('/');
+      if (error) throw error;
+
+      alert('성공적으로 수정되었습니다!');
+      navigate(`/poll/${poll.id}`);
+    } catch (err: any) {
+      alert('수정 중 오류가 발생했습니다: ' + err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleDelete = async () => {
+    if (window.confirm('정말로 이 투표를 삭제하시겠습니까? 관련 데이터가 모두 삭제됩니다.')) {
+      setLoading(true);
+      try {
+        const { error } = await supabase
+          .from('polls')
+          .delete()
+          .eq('id', poll.id);
+
+        if (error) throw error;
+
+        alert('삭제되었습니다!');
+        navigate('/');
+      } catch (err: any) {
+        alert('삭제 중 오류가 발생했습니다: ' + err.message);
+        setLoading(false);
+      }
+    }
+  };
+
+  if (loading && !poll) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-penguin-yellow"></div>
+        <p className="mt-4 text-gray-500 font-bold">데이터를 불러오는 중...</p>
+      </div>
+    );
+  }
+
+  if (!poll) return <div className="p-8 text-center font-bold text-penguin-black">투표를 찾을 수 없습니다.</div>;
 
   if (!isAuthenticated) {
     return (
@@ -97,42 +165,32 @@ const Management: React.FC = () => {
         <div>
           <label className="block text-sm font-black text-penguin-black mb-2">상세 내용 수정 (선택)</label>
           <textarea 
-            value={editForm.question}
-            onChange={(e) => setEditForm({...editForm, question: e.target.value})}
+            value={editForm.description}
+            onChange={(e) => setEditForm({...editForm, description: e.target.value})}
             className="w-full p-5 bg-penguin-gray border-none rounded-2xl h-32 focus:ring-4 focus:ring-penguin-yellow font-black text-penguin-black transition-all" 
             maxLength={300}
           />
         </div>
-        <div className="space-y-4">
-          <input 
-            type="text" 
-            value={editForm.optionA}
-            onChange={(e) => setEditForm({...editForm, optionA: e.target.value})}
-            className="w-full p-5 bg-penguin-black border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow font-black text-white transition-all" 
-            maxLength={50}
-          />
-          <input 
-            type="text" 
-            value={editForm.optionB}
-            onChange={(e) => setEditForm({...editForm, optionB: e.target.value})}
-            className="w-full p-5 bg-penguin-yellow border-none rounded-2xl focus:ring-4 focus:ring-penguin-black font-black text-penguin-black transition-all" 
-            maxLength={50}
-          />
-        </div>
+
+        <p className="text-xs text-gray-400 font-bold bg-gray-50 p-4 rounded-xl leading-relaxed">
+          💡 투표 선택지는 데이터 무결성을 위해 수정을 제한하고 있습니다. 제목이나 설명만 수정 가능합니다.
+        </p>
         
         <div className="flex gap-3 pt-6">
           <button 
             type="button"
+            disabled={loading}
             onClick={handleDelete}
-            className="flex-1 py-4 bg-red-50 text-red-600 rounded-2xl font-black hover:bg-red-100 transition-colors"
+            className="flex-1 py-4 bg-red-50 text-red-600 rounded-2xl font-black hover:bg-red-100 transition-colors disabled:opacity-50"
           >
             삭제
           </button>
           <button 
             type="submit"
-            className="flex-[2] py-4 bg-penguin-yellow text-penguin-black rounded-2xl font-black shadow-lg shadow-penguin-yellow/20 hover:bg-penguin-black hover:text-penguin-yellow transition-all"
+            disabled={loading}
+            className="flex-[2] py-4 bg-penguin-yellow text-penguin-black rounded-2xl font-black shadow-lg shadow-penguin-yellow/20 hover:bg-penguin-black hover:text-penguin-yellow transition-all disabled:opacity-50"
           >
-            변경사항 저장
+            {loading ? '저장 중...' : '변경사항 저장'}
           </button>
         </div>
       </form>
