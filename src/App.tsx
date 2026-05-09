@@ -7,22 +7,25 @@ import Management from "./pages/Management";
 import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import DbTest from "./pages/DbTest";
+import LogoLink from "./components/LogoLink";
 
 function App() {
-  const [dimensions, setDimensions] = useState({ 
-    cols: typeof window !== 'undefined' ? Math.ceil(window.innerWidth / 40) : 20, 
-    rows: typeof window !== 'undefined' ? Math.ceil(window.innerHeight / 30) : 20 
+  const [dimensions, setDimensions] = useState({
+    cols:
+      typeof window !== "undefined" ? Math.ceil(window.innerWidth / 40) : 20,
+    rows:
+      typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
   });
 
   useEffect(() => {
     const handleResize = () => {
       setDimensions({
         cols: Math.ceil(window.innerWidth / 40),
-        rows: Math.ceil(window.innerHeight / 30)
+        rows: Math.ceil(window.innerHeight / 30),
       });
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -31,23 +34,27 @@ function App() {
       <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
         {/* 배경 영역 */}
         <div className="absolute inset-0 w-full h-full z-[-1] flex overflow-hidden">
-          <img 
-            src="/highpenguin_left.PNG" 
-            alt="Floating Penguin Left" 
+          <img
+            src="/highpenguin_left.PNG"
+            alt="Floating Penguin Left"
             className="bg-penguin-left"
           />
-          <img 
-            src="/highpenguin_right.PNG" 
-            alt="Floating Penguin Right" 
+          <img
+            src="/highpenguin_right.PNG"
+            alt="Floating Penguin Right"
             className="bg-penguin-right"
           />
-          
+
           {/* 불꽃 동적 배치 */}
           {Array.from({ length: dimensions.cols }).map((_, i) => (
-            <div key={i} className="flex flex-col justify-between h-full" style={{ width: '40px', flexShrink: 0 }}>
+            <div
+              key={i}
+              className="flex flex-col justify-between h-full"
+              style={{ width: "40px", flexShrink: 0 }}
+            >
               {Array.from({ length: dimensions.rows }).map((_, j) => (
-                <span 
-                  key={j} 
+                <span
+                  key={j}
                   className="fire-emoji inline-block opacity-15"
                   style={{ animationDelay: `${Math.random() * 2}s` }}
                 >
@@ -57,19 +64,10 @@ function App() {
             </div>
           ))}
         </div>
-        
+
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-            <Link to="/" onClick={() => window.location.reload()} className="flex items-center gap-2 group">
-              <img 
-                src="/pangpang_logo.png" 
-                alt="PANGPANG 로고" 
-                className="w-10 h-10 object-contain rounded-full group-hover:rotate-12 transition-transform duration-300" 
-              />
-              <h1 className="text-2xl font-black text-penguin-yellow tracking-tighter">
-                PANGPANG
-              </h1>
-            </Link>
+            <LogoLink />
             <nav className="flex gap-6">
               <Link
                 to="/"
