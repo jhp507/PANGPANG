@@ -36,12 +36,12 @@ function App() {
         {/* 배경 영역 */}
         <div className="absolute inset-0 w-full h-full z-[-1] flex overflow-hidden">
           <img
-            src="/highpenguin_left.PNG"
+            src="/pangpang_logo_gbr.png"
             alt="Floating Penguin Left"
             className="bg-penguin-left"
           />
           <img
-            src="/highpenguin_right.PNG"
+            src="/pangpang_logo_gbr.png"
             alt="Floating Penguin Right"
             className="bg-penguin-right"
           />

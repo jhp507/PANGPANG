@@ -194,7 +194,7 @@ const PollDetail: React.FC = () => {
         </Link>
       </div>
 
-      <div className="bg-white p-6 md:p-8 rounded-[2.5rem] md:rounded-[4rem] shadow-[0_20px_70px_rgb(0,0,0,0.08)] border border-gray-50 mb-8 relative overflow-hidden">
+      <div className="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-[2.5rem] md:rounded-[4rem] shadow-[0_20px_70px_rgb(0,0,0,0.08)] border border-gray-50/50 mb-8 relative overflow-hidden">
         <div className="flex flex-wrap justify-between items-center gap-2 mb-8 md:mb-10">
           <div className="flex items-center gap-2 md:gap-3">
             {isHot && (
