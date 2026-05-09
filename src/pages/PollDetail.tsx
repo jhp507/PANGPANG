@@ -134,17 +134,14 @@ const PollDetail: React.FC = () => {
       ]);
 
       if (error) {
-        if (error.code === "23505") {
-          alert("이미 이 투표에 참여하셨습니다.");
-        } else {
-          throw error;
-        }
+        console.error("Voting error:", error);
+        throw new Error("Voting failed");
       } else {
         setMyVote(optionId);
         fetchPollAndUserVote(poll.id, voterId);
       }
     } catch (err: any) {
-      alert("투표 처리 중 오류가 발생했습니다: " + err.message);
+      alert("투표 처리 중 문제가 발생했습니다. 다시 시도해 주세요.");
     } finally {
       setVoting(false);
     }
