@@ -4,12 +4,14 @@ import PollDetail from "./pages/PollDetail";
 import CreatePoll from "./pages/CreatePoll";
 import Management from "./pages/Management";
 import PenguinLogo from "./components/PenguinLogo";
+import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import DbTest from "./pages/DbTest";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-penguin-gray text-penguin-black font-sans">
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">

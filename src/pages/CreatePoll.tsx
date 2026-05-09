@@ -61,10 +61,10 @@ const CreatePoll: React.FC = () => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-3xl font-black mb-8 text-penguin-black">새 투표 만들기</h1>
+    <div className="px-2 py-4 max-w-md mx-auto">
+      <h1 className="text-3xl font-black mb-8 text-penguin-black px-2">새 투표 만들기</h1>
       <form onSubmit={handleSubmit} className="space-y-8 pb-12">
-        <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 space-y-6">
+        <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-gray-100 space-y-6">
           <div>
             <label className="block text-sm font-black text-penguin-black mb-2 ml-1">투표 제목 (필수)</label>
             <input 
@@ -72,7 +72,7 @@ const CreatePoll: React.FC = () => {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-5 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-black text-penguin-black" 
+              className="w-full p-5 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-base text-penguin-black" 
               placeholder="예: 점심 메뉴 추천해주세요!"
               maxLength={50}
             />
@@ -82,7 +82,7 @@ const CreatePoll: React.FC = () => {
             <textarea 
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full p-5 bg-penguin-gray border-none rounded-2xl h-32 focus:ring-4 focus:ring-penguin-yellow transition-all font-bold placeholder:text-gray-300 text-penguin-black" 
+              className="w-full p-5 bg-penguin-gray border-none rounded-2xl h-32 focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-base placeholder:text-gray-300 text-penguin-black" 
               placeholder="투표에 대한 상세 설명을 적어보세요."
               maxLength={300}
             />
@@ -95,7 +95,7 @@ const CreatePoll: React.FC = () => {
               type="text" 
               value={option1}
               onChange={(e) => setOption1(e.target.value)}
-              className="w-full p-5 bg-penguin-black border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-black text-white" 
+              className="w-full p-5 bg-penguin-black border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-base text-white" 
               placeholder="선택지 1"
               maxLength={50}
             />
@@ -104,22 +104,22 @@ const CreatePoll: React.FC = () => {
               type="text" 
               value={option2}
               onChange={(e) => setOption2(e.target.value)}
-              className="w-full p-5 bg-penguin-yellow border-none rounded-2xl focus:ring-4 focus:ring-black transition-all font-black text-penguin-black" 
+              className="w-full p-5 bg-penguin-yellow border-none rounded-2xl focus:ring-4 focus:ring-black transition-all font-bold text-base text-penguin-black" 
               placeholder="선택지 2"
               maxLength={50}
             />
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 space-y-4">
-          <p className="text-sm text-gray-500 font-black mb-2 ml-1">🛡️ 관리 정보 설정 (수정/삭제용)</p>
+        <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-gray-100 space-y-4">
+          <p className="text-sm font-black text-penguin-black mb-2 ml-1">🛡️ 관리 정보 설정 (수정/삭제용)</p>
           <div className="grid grid-cols-2 gap-4">
             <input 
               required
               type="text" 
               value={adminId}
               onChange={(e) => setAdminId(e.target.value)}
-              className="w-full p-4 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-sm text-penguin-black" 
+              className="w-full p-4 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-base text-penguin-black" 
               placeholder="관리자 ID" 
             />
             <input 
@@ -127,7 +127,7 @@ const CreatePoll: React.FC = () => {
               type="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-sm text-penguin-black" 
+              className="w-full p-4 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-base text-penguin-black" 
               placeholder="비밀번호" 
             />
           </div>

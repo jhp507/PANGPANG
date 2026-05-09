@@ -101,7 +101,7 @@ const Home: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="p-4 flex flex-col items-center justify-center min-h-[50vh]">
+      <div className="px-2 py-4 flex flex-col items-center justify-center min-h-[50vh]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-penguin-yellow"></div>
         <p className="mt-4 text-gray-500 font-bold">투표 목록을 불러오는 중...</p>
       </div>
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="px-2 py-4">
       <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
         {[
           { id: 'hot', label: '🔥 치열함' },

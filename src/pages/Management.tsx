@@ -99,41 +99,41 @@ const Management: React.FC = () => {
 
   if (loading && !poll) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] px-2 py-4">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-penguin-yellow"></div>
         <p className="mt-4 text-gray-500 font-bold">데이터를 불러오는 중...</p>
       </div>
     );
   }
 
-  if (!poll) return <div className="p-8 text-center font-bold text-penguin-black">투표를 찾을 수 없습니다.</div>;
+  if (!poll) return <div className="px-2 py-8 text-center font-bold text-penguin-black">투표를 찾을 수 없습니다.</div>;
 
   if (!isAuthenticated) {
     return (
-      <div className="p-4 max-w-md mx-auto">
+      <div className="px-2 py-4 max-w-md mx-auto">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-black mb-3 text-penguin-black">관리자 인증</h1>
           <p className="text-gray-400 font-bold text-sm">작성자 본인 확인이 필요합니다.</p>
         </div>
-        <form onSubmit={handleLogin} className="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 space-y-5">
+        <form onSubmit={handleLogin} className="bg-white p-6 md:p-10 rounded-[3rem] shadow-sm border border-gray-100 space-y-5">
           <div>
-            <label className="block text-xs font-black text-gray-400 mb-2 ml-2 uppercase tracking-widest">ID</label>
+            <label className="block text-sm font-black text-penguin-black mb-2 ml-1">ID</label>
             <input 
               type="text" 
               value={loginInfo.id}
               onChange={(e) => setLoginInfo({...loginInfo, id: e.target.value})}
-              className="w-full p-5 bg-penguin-gray border-none rounded-[1.5rem] focus:ring-4 focus:ring-penguin-yellow font-black text-penguin-black transition-all" 
+              className="w-full p-5 bg-penguin-gray border-none rounded-[1.5rem] focus:ring-4 focus:ring-penguin-yellow font-bold text-base text-penguin-black transition-all" 
               placeholder="ID 입력"
               required
             />
           </div>
           <div>
-            <label className="block text-xs font-black text-gray-400 mb-2 ml-2 uppercase tracking-widest">Password</label>
+            <label className="block text-sm font-black text-penguin-black mb-2 ml-1">Password</label>
             <input 
               type="password" 
               value={loginInfo.pw}
               onChange={(e) => setLoginInfo({...loginInfo, pw: e.target.value})}
-              className="w-full p-5 bg-penguin-gray border-none rounded-[1.5rem] focus:ring-4 focus:ring-penguin-yellow font-black text-penguin-black transition-all" 
+              className="w-full p-5 bg-penguin-gray border-none rounded-[1.5rem] focus:ring-4 focus:ring-penguin-yellow font-bold text-base text-penguin-black transition-all" 
               placeholder="••••••"
               required
             />
@@ -148,9 +148,9 @@ const Management: React.FC = () => {
   }
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-3xl font-black mb-8 text-penguin-black">투표 내용 수정</h1>
-      <form onSubmit={handleUpdate} className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 space-y-6">
+    <div className="px-2 py-4 max-w-md mx-auto">
+      <h1 className="text-3xl font-black mb-8 text-penguin-black px-2">투표 내용 수정</h1>
+      <form onSubmit={handleUpdate} className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-gray-100 space-y-6">
         <div>
           <label className="block text-sm font-black text-penguin-black mb-2">투표 제목 수정 (필수)</label>
           <input 
@@ -158,7 +158,7 @@ const Management: React.FC = () => {
             type="text"
             value={editForm.title}
             onChange={(e) => setEditForm({...editForm, title: e.target.value})}
-            className="w-full p-5 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-black text-penguin-black" 
+            className="w-full p-5 bg-penguin-gray border-none rounded-2xl focus:ring-4 focus:ring-penguin-yellow transition-all font-bold text-base text-penguin-black" 
             maxLength={50}
           />
         </div>
@@ -167,7 +167,7 @@ const Management: React.FC = () => {
           <textarea 
             value={editForm.description}
             onChange={(e) => setEditForm({...editForm, description: e.target.value})}
-            className="w-full p-5 bg-penguin-gray border-none rounded-2xl h-32 focus:ring-4 focus:ring-penguin-yellow font-black text-penguin-black transition-all" 
+            className="w-full p-5 bg-penguin-gray border-none rounded-2xl h-32 focus:ring-4 focus:ring-penguin-yellow font-bold text-base text-penguin-black transition-all" 
             maxLength={300}
           />
         </div>
