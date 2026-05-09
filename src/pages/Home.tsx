@@ -81,24 +81,31 @@ const Home: React.FC = () => {
       setLoading(false);
     }
   };
+const getSortedPolls = () => {
+  const sorted = [...polls];
+  if (filter === "hot") {
+    return sorted.sort((a, b) => {
+      const getIsHot = (p: Poll) => p.total_votes >= 10 && (p.options[0].vote_count / p.total_votes) >= 0.45 && (p.options[0].vote_count / p.total_votes) <= 0.55;
+      const isHotA = getIsHot(a);
+      const isHotB = getIsHot(b);
 
-  const getSortedPolls = () => {
-    const sorted = [...polls];
-    if (filter === "hot") {
-      return sorted.sort((a, b) => {
-        if (a.total_votes === 0 && b.total_votes === 0) return 0;
-        if (a.total_votes === 0) return 1;
-        if (b.total_votes === 0) return -1;
+      if (isHotA && !isHotB) return -1;
+      if (!isHotA && isHotB) return 1;
 
-        const ratioA = a.options[0].vote_count / a.total_votes;
-        const ratioB = b.options[0].vote_count / b.total_votes;
-        const diffA = Math.abs(ratioA - 0.5);
-        const diffB = Math.abs(ratioB - 0.5);
+      if (a.total_votes === 0 && b.total_votes === 0) return 0;
+      if (a.total_votes === 0) return 1;
+      if (b.total_votes === 0) return -1;
 
-        if (diffA !== diffB) return diffA - diffB;
-        return b.total_votes - a.total_votes;
-      });
-    }
+      const ratioA = a.options[0].vote_count / a.total_votes;
+      const ratioB = b.options[0].vote_count / b.total_votes;
+      const diffA = Math.abs(ratioA - 0.5);
+      const diffB = Math.abs(ratioB - 0.5);
+
+      if (diffA !== diffB) return diffA - diffB;
+      return b.total_votes - a.total_votes;
+    });
+  }
+
     if (filter === "popular") {
       return sorted.sort((a, b) => b.total_votes - a.total_votes);
     }
