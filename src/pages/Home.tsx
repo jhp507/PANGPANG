@@ -143,7 +143,7 @@ const Home: React.FC = () => {
             
             const percentA = total > 0 ? Math.round((optA.vote_count / total) * 100) : 50;
             const percentB = 100 - percentA;
-            const isHot = total > 0 && Math.abs(percentA - 50) <= 10;
+            const isHot = total >= 10 && percentA >= 45 && percentA <= 55;
 
             return (
               <Link 
