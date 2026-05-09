@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { formatRelativeTime } from "../lib/utils";
+import TypewriterTitle from "../components/TypewriterTitle";
 
 interface Poll {
   id: string;
@@ -119,8 +120,9 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className="">
-      <div className="flex gap-2 mb-4 overflow-x-auto pb-1 scrollbar-hide">
+    <div className="px-2 py-4">
+      <TypewriterTitle />
+      <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
         {[
           {
             id: "hot",
