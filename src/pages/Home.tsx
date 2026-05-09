@@ -112,14 +112,14 @@ const Home: React.FC = () => {
     <div className="px-2 py-4">
       <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
         {[
-          { id: 'hot', label: '🔥 치열함' },
-          { id: 'popular', label: '⭐ 인기순' },
+          { id: 'hot', label: <><span className="animate-fire mr-1">🔥</span> 치열함</> },
+          { id: 'popular', label: <><span className="animate-star mr-1">⭐</span> 인기순</> },
           { id: 'latest', label: '🕒 최신순' }
         ].map((tab) => (
           <button
-            key={tab.id}
+            key={tab.id as string}
             onClick={() => setFilter(tab.id as any)}
-            className={`px-5 py-2.5 rounded-full text-sm font-black transition-all whitespace-nowrap ${
+            className={`px-5 py-2.5 rounded-full text-sm font-black transition-all whitespace-nowrap flex items-center ${
               filter === tab.id 
                 ? 'bg-penguin-yellow text-penguin-black shadow-md' 
                 : 'bg-white text-penguin-black border border-gray-100 hover:bg-penguin-yellow/20'
@@ -154,8 +154,8 @@ const Home: React.FC = () => {
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex gap-2 h-6">
                     {isHot && (
-                      <span className="flex items-center justify-center bg-penguin-yellow text-penguin-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
-                        팽팽🔥
+                      <span className="flex items-center justify-center bg-penguin-yellow text-penguin-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm animate-pang-pulse">
+                        팽팽<span className="animate-fire">🔥</span>
                       </span>
                     )}
                     <span className="flex items-center justify-center text-[10px] text-gray-500 font-bold px-3 py-1 bg-gray-50 rounded-full">

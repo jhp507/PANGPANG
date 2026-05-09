@@ -20,3 +20,36 @@ body {
 /* 스크롤바 숨기기 */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 팽팽 배지 애니메이션 (통통 튀기) */
+@keyframes pang-pulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-pang-pulse {
+  animation: pang-pulse 0.8s ease-in-out infinite;
+}
+
+/* 불 이모지 확대 축소 애니메이션 */
+@keyframes fire-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+.animate-fire {
+  display: inline-block;
+  animation: fire-scale 0.8s ease-in-out infinite;
+}
+
+/* 별 이모지 흔들기 애니메이션 */
+@keyframes star-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-15deg); }
+  75% { transform: rotate(15deg); }
+}
+
+.animate-star {
+  display: inline-block;
+  animation: star-wiggle 0.8s ease-in-out infinite;
+}

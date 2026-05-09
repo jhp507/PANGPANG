@@ -181,6 +181,10 @@ const PollDetail: React.FC = () => {
       ? poll.description!.slice(0, 100) + "..."
       : poll.description;
 
+  const total = poll.total_votes;
+  const percentA = total > 0 ? Math.round((poll.options[0].vote_count / total) * 100) : 50;
+  const isHot = total >= 10 && percentA >= 45 && percentA <= 55;
+
   return (
     <div className="px-2 py-4 max-w-2xl mx-auto">
       <div className="mb-6 px-2">
@@ -195,6 +199,11 @@ const PollDetail: React.FC = () => {
       <div className="bg-white px-4 py-8 md:p-14 rounded-[2.5rem] md:rounded-[4rem] shadow-[0_20px_70px_rgb(0,0,0,0.08)] border border-gray-50 mb-8 relative overflow-hidden">
         <div className="flex flex-wrap justify-between items-center gap-2 mb-8 md:mb-10">
           <div className="flex items-center gap-2 md:gap-3">
+            {isHot && (
+              <span className="bg-penguin-yellow text-penguin-black text-[9px] md:text-[10px] font-black px-2 py-1 md:px-3 md:py-1 rounded-full uppercase tracking-wider shadow-sm animate-pang-pulse">
+                팽팽<span className="animate-fire">🔥</span>
+              </span>
+            )}
             <span className="bg-penguin-black text-penguin-yellow text-[9px] md:text-[10px] font-black px-2 py-1 md:px-3 md:py-1 rounded-full uppercase tracking-[0.1em] md:tracking-[0.2em] shadow-sm">
               Live Poll
             </span>
