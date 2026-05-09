@@ -11,14 +11,15 @@ const FireButton = () => {
     <>
       {/* Home일 때는 + 버튼 위(bottom-28), 다른 페이지는 구석(bottom-8) */}
       <div
-        className={`fixed ${isHome ? "bottom-28" : "bottom-8"} right-8 z-[100] p-5`}
+        className={`fixed ${isHome ? "bottom-28" : "bottom-8"} right-8 z-[100]`}
       >
-        <button
+        <button 
           onClick={() => setShowFire(true)}
-          className="w-10 h-10 text-3xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all"
+          className="w-16 h-16 text-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all"
         >
           🔥
         </button>
+
       </div>
       {showFire && <HighFiveAnimation onComplete={() => setShowFire(false)} />}
     </>
