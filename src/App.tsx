@@ -60,7 +60,7 @@ function App() {
         
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 group">
+            <Link to="/" onClick={() => window.location.reload()} className="flex items-center gap-2 group">
               <img 
                 src="/pangpang_logo.png" 
                 alt="PANGPANG 로고" 
