@@ -3,7 +3,6 @@ import Home from "./pages/Home";
 import PollDetail from "./pages/PollDetail";
 import CreatePoll from "./pages/CreatePoll";
 import Management from "./pages/Management";
-import PenguinLogo from "./components/PenguinLogo";
 import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import DbTest from "./pages/DbTest";
@@ -12,7 +11,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen text-penguin-black font-sans relative overflow-x-hidden">
+      <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
         {/* 배경에서 떠다니는 펭귄들 */}
         <img 
           src="/highpenguin_left.PNG" 
@@ -24,16 +23,15 @@ function App() {
           alt="Floating Penguin Right" 
           className="bg-penguin-right"
         />
-
+        
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
-
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2 group">
-              <img
-                src="/pangpang_logo.png"
-                alt="PANGPANG 로고"
-                className="w-10 h-10 object-contain rounded-full group-hover:rotate-12 transition-transform duration-300"
-              />{" "}
+              <img 
+                src="/pangpang_logo.png" 
+                alt="PANGPANG 로고" 
+                className="w-10 h-10 object-contain rounded-full group-hover:rotate-12 transition-transform duration-300" 
+              />
               <h1 className="text-2xl font-black text-penguin-yellow tracking-tighter">
                 PANGPANG
               </h1>
@@ -55,7 +53,7 @@ function App() {
           </div>
         </header>
 
-        <main className="max-w-4xl mx-auto py-6 px-4">
+        <main className="flex-1 max-w-4xl mx-auto py-6 px-4 w-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/poll/:id" element={<PollDetail />} />
