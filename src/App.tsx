@@ -70,12 +70,12 @@ function App() {
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <LogoLink />
             <nav className="flex gap-6">
-              <Link
+              {/* <Link
                 to="/"
                 className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors"
               >
                 홈
-              </Link>
+              </Link> */}
               <Link
                 to="/create"
                 className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors"
