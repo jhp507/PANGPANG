@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MOCK_POLLS } from '../mocks/data';
 import { formatRelativeTime } from '../lib/utils';
+import HighFiveAnimation from '../components/HighFiveAnimation';
 
 const PollDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const poll = MOCK_POLLS.find(p => p.id === id);
   
   const [voted, setVoted] = useState<null | 'A' | 'B'>(null);
+  const [pendingVote, setPendingVote] = useState<null | 'A' | 'B'>(null);
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!poll) return <div className="p-8 text-center font-bold text-penguin-black">투표를 찾을 수 없습니다.</div>;
+
+  const handleVote = (choice: 'A' | 'B') => {
+    setPendingVote(choice);
+  };
+
+  const onAnimationComplete = () => {
+    setVoted(pendingVote);
+    setPendingVote(null);
+  };
 
   const total = poll.votesA + poll.votesB + (voted ? 1 : 0);
   const currentVotesA = poll.votesA + (voted === 'A' ? 1 : 0);
@@ -70,7 +81,7 @@ const PollDetail: React.FC = () => {
         {!voted ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mt-6 md:mt-8">
             <button 
-              onClick={() => setVoted('A')}
+              onClick={() => handleVote('A')}
               className="group relative p-6 md:p-10 bg-penguin-black rounded-[1.5rem] md:rounded-[2.5rem] text-left hover:scale-[1.03] transition-all shadow-xl shadow-black/20 overflow-hidden"
             >
               <span className="text-[9px] font-black text-penguin-yellow/50 uppercase tracking-widest mb-2 block">Option A</span>
@@ -78,7 +89,7 @@ const PollDetail: React.FC = () => {
               <span className="absolute -right-4 -bottom-4 text-7xl md:text-9xl opacity-10 font-black text-white italic">A</span>
             </button>
             <button 
-              onClick={() => setVoted('B')}
+              onClick={() => handleVote('B')}
               className="group relative p-6 md:p-10 bg-penguin-yellow rounded-[1.5rem] md:rounded-[2.5rem] text-left hover:scale-[1.03] transition-all shadow-xl shadow-penguin-yellow/30 overflow-hidden"
             >
               <span className="text-[9px] font-black text-penguin-black/40 uppercase tracking-widest mb-2 block">Option B</span>
@@ -132,6 +143,8 @@ const PollDetail: React.FC = () => {
           </div>
         )}
       </div>
+
+      {pendingVote && <HighFiveAnimation onComplete={onAnimationComplete} />}
 
       <div className="flex justify-between items-center px-4 md:px-8 gap-2">
         <Link 
