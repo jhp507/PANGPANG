@@ -82,35 +82,19 @@ body {
 
 
 
-/* 펭귄 배경 배회 애니메이션 (왼쪽 시작) */
+/* 펭귄 배경 배회 애니메이션 (통합) */
 @keyframes penguin-wander-left {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  20% { transform: translate(15vw, 20vh) rotate(20deg); }
-  40% { transform: translate(30vw, -10vh) rotate(-15deg); }
-  60% { transform: translate(10vw, 30vh) rotate(15deg); }
-  80% { transform: translate(25vw, 5vh) rotate(-20deg); }
-}
-
-/* 펭귄 배경 배회 애니메이션 (오른쪽 시작) */
-@keyframes penguin-wander-right {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  20% { transform: translate(-15vw, 25vh) rotate(-20deg); }
-  40% { transform: translate(-35vw, -5vh) rotate(15deg); }
-  60% { transform: translate(-10vw, 35vh) rotate(-15deg); }
-  80% { transform: translate(-20vw, 10vh) rotate(20deg); }
-}
-
-/* 펭귄 배경 배회 애니메이션 (전체 컨텐츠 영역) */
-@keyframes penguin-wander-left {
-  0%, 100% { top: 10%; left: 5%; transform: rotate(0deg); }
-  33% { top: 60%; left: 80%; transform: rotate(10deg); }
-  66% { top: 80%; left: 10%; transform: rotate(-10deg); }
+  25% { transform: translate(20vw, 30vh) rotate(15deg); }
+  50% { transform: translate(50vw, 10vh) rotate(-10deg); }
+  75% { transform: translate(10vw, 50vh) rotate(5deg); }
 }
 
 @keyframes penguin-wander-right {
-  0%, 100% { top: 10%; right: 5%; transform: rotate(0deg); }
-  33% { top: 70%; right: 70%; transform: rotate(-10deg); }
-  66% { top: 85%; right: 15%; transform: rotate(10deg); }
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-20vw, 25vh) rotate(-15deg); }
+  50% { transform: translate(-50vw, 5vh) rotate(10deg); }
+  75% { transform: translate(-10vw, 45vh) rotate(-5deg); }
 }
 
 .bg-penguin-left {
