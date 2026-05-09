@@ -53,3 +53,36 @@ body {
   display: inline-block;
   animation: star-wiggle 0.8s ease-in-out infinite;
 }
+
+/* 펭귄 배경 배회 애니메이션 (전체 화면) */
+@keyframes penguin-wander-left {
+  0%, 100% { top: 10%; left: 5%; transform: rotate(0deg); }
+  33% { top: 60%; left: 80%; transform: rotate(10deg); }
+  66% { top: 80%; left: 10%; transform: rotate(-10deg); }
+}
+
+@keyframes penguin-wander-right {
+  0%, 100% { top: 10%; right: 5%; transform: rotate(0deg); }
+  33% { top: 70%; right: 70%; transform: rotate(-10deg); }
+  66% { top: 85%; right: 15%; transform: rotate(10deg); }
+}
+
+.bg-penguin-left {
+  position: fixed;
+  width: 120px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+  animation: penguin-wander-left 20s linear infinite;
+  filter: blur(0.5px);
+}
+
+.bg-penguin-right {
+  position: fixed;
+  width: 120px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+  animation: penguin-wander-right 25s linear infinite;
+  filter: blur(0.5px);
+}
