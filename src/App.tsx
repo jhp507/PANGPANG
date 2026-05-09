@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Home from "./pages/Home";
 import PollDetail from "./pages/PollDetail";
 import CreatePoll from "./pages/CreatePoll";
@@ -16,24 +15,18 @@ function App() {
     cols:
       typeof window !== "undefined" ? Math.ceil(window.innerWidth / 40) : 20,
     rows:
-      typeof window !== "undefined"
-        ? Math.ceil(document.body.scrollHeight / 30)
-        : 20,
+      typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
   });
 
   useEffect(() => {
     const handleResize = () => {
       setDimensions({
         cols: Math.ceil(window.innerWidth / 40),
-        rows: Math.ceil(document.body.scrollHeight / 30),
+        rows: Math.ceil(window.innerHeight / 30),
       });
     };
     window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -41,70 +34,36 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
         {/* 배경 영역 */}
-        <div
-          className="absolute inset-0 w-full z-[-1] overflow-hidden"
-          style={{ height: document.body.scrollHeight }}
-        >
-          {/* 펭귄들 (Framer Motion 적용 - 전체 영역 자유 이동) */}
-          {[...Array(3)].map((_, i) => (
-            <motion.img
-              key={`left-${i}`}
-              src="/pangpang_logo_gbr.png"
-              alt="Penguin"
-              className="absolute w-[120px] opacity-40 pointer-events-none"
-              initial={{ x: -150, y: i * 400 }}
-              animate={{
-                x: [0, window.innerWidth - 120, 0],
-                y: [i * 400, document.body.scrollHeight - 200, i * 400],
-                rotate: [0, 20, -20, 0],
-              }}
-              transition={{
-                duration: 25 + i * 5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          ))}
-          {[...Array(3)].map((_, i) => (
-            <motion.img
-              key={`right-${i}`}
-              src="/pangpang_logo_gbr.png"
-              alt="Penguin"
-              className="absolute w-[120px] opacity-40 pointer-events-none"
-              initial={{ x: window.innerWidth, y: i * 400 }}
-              animate={{
-                x: [window.innerWidth, 0, window.innerWidth],
-                y: [i * 400, document.body.scrollHeight - 200, i * 400],
-                rotate: [0, -20, 20, 0],
-              }}
-              transition={{
-                duration: 30 + i * 5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          ))}
+        <div className="absolute inset-0 w-full h-full z-[-1] flex overflow-hidden">
+          <img
+            src="/highpenguin_left.PNG"
+            alt="Floating Penguin Left"
+            className="bg-penguin-left"
+          />
+          <img
+            src="/highpenguin_right.PNG"
+            alt="Floating Penguin Right"
+            className="bg-penguin-right"
+          />
 
           {/* 불꽃 동적 배치 */}
-          <div className="flex w-full h-full">
-            {Array.from({ length: dimensions.cols }).map((_, i) => (
-              <div
-                key={i}
-                className="flex flex-col justify-between h-full"
-                style={{ width: "40px", flexShrink: 0 }}
-              >
-                {Array.from({ length: dimensions.rows }).map((_, j) => (
-                  <span
-                    key={j}
-                    className="fire-emoji inline-block opacity-15"
-                    style={{ animationDelay: `${Math.random() * 2}s` }}
-                  >
-                    🔥
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
+          {Array.from({ length: dimensions.cols }).map((_, i) => (
+            <div
+              key={i}
+              className="flex flex-col justify-between h-full"
+              style={{ width: "40px", flexShrink: 0 }}
+            >
+              {Array.from({ length: dimensions.rows }).map((_, j) => (
+                <span
+                  key={j}
+                  className="fire-emoji inline-block opacity-15"
+                  style={{ animationDelay: `${Math.random() * 2}s` }}
+                >
+                  🔥
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
 
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
