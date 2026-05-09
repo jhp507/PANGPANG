@@ -182,7 +182,8 @@ const PollDetail: React.FC = () => {
       : poll.description;
 
   const total = poll.total_votes;
-  const percentA = total > 0 ? Math.round((poll.options[0].vote_count / total) * 100) : 50;
+  const percentA =
+    total > 0 ? Math.round((poll.options[0].vote_count / total) * 100) : 50;
   const isHot = total >= 10 && percentA >= 45 && percentA <= 55;
 
   return (
@@ -196,7 +197,7 @@ const PollDetail: React.FC = () => {
         </Link>
       </div>
 
-      <div className="bg-white px-4 py-8 md:p-14 rounded-[2.5rem] md:rounded-[4rem] shadow-[0_20px_70px_rgb(0,0,0,0.08)] border border-gray-50 mb-8 relative overflow-hidden">
+      <div className="bg-white p-6 md:p-8 rounded-[2.5rem] md:rounded-[4rem] shadow-[0_20px_70px_rgb(0,0,0,0.08)] border border-gray-50 mb-8 relative overflow-hidden">
         <div className="flex flex-wrap justify-between items-center gap-2 mb-8 md:mb-10">
           <div className="flex items-center gap-2 md:gap-3">
             {isHot && (
@@ -204,9 +205,9 @@ const PollDetail: React.FC = () => {
                 팽팽<span className="animate-fire">🔥</span>
               </span>
             )}
-            <span className="bg-penguin-black text-penguin-yellow text-[9px] md:text-[10px] font-black px-2 py-1 md:px-3 md:py-1 rounded-full uppercase tracking-[0.1em] md:tracking-[0.2em] shadow-sm">
+            {/* <span className="bg-penguin-black text-penguin-yellow text-[9px] md:text-[10px] font-black px-2 py-1 md:px-3 md:py-1 rounded-full uppercase tracking-[0.1em] md:tracking-[0.2em] shadow-sm">
               Live Poll
-            </span>
+            </span> */}
             <span className="text-[10px] md:text-xs text-gray-400 font-black">
               {poll.total_votes}명 참여중
             </span>
@@ -245,7 +246,7 @@ const PollDetail: React.FC = () => {
                 key={option.id}
                 disabled={voting || !!pendingVoteId}
                 onClick={() => handleVoteClick(option.id)}
-                className={`group relative p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] text-left hover:scale-[1.03] transition-all shadow-xl overflow-hidden ${
+                className={`group relative p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] text-left hover:scale-[1.03] transition-all shadow-xl overflow-hidden ${
                   index === 0
                     ? "bg-penguin-black shadow-black/20"
                     : "bg-penguin-yellow shadow-penguin-yellow/30"

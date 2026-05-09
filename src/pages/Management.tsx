@@ -115,7 +115,7 @@ const Management: React.FC = () => {
           <h1 className="text-4xl font-black mb-3 text-penguin-black">관리자 인증</h1>
           <p className="text-gray-400 font-bold text-sm">작성자 본인 확인이 필요합니다.</p>
         </div>
-        <form onSubmit={handleLogin} className="bg-white p-6 md:p-10 rounded-[3rem] shadow-sm border border-gray-100 space-y-5">
+        <form onSubmit={handleLogin} className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-gray-100 space-y-5">
           <div>
             <label className="block text-sm font-black text-penguin-black mb-2 ml-1">ID</label>
             <input 
