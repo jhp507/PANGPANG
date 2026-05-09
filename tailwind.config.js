@@ -5,10 +5,10 @@ export default {
     extend: {
       colors: {
         penguin: {
-          yellow: 'rgb(var(--penguin-yellow) / <alpha-value>)',
-          black: 'rgb(var(--penguin-black) / <alpha-value>)',
+          yellow: 'color-mix(in srgb, var(--penguin-yellow), transparent calc(100% - (<alpha-value> * 100%)))',
+          black: 'color-mix(in srgb, var(--penguin-black), transparent calc(100% - (<alpha-value> * 100%)))',
           white: '#FFFFFF',
-          gray: 'rgb(var(--penguin-gray) / <alpha-value>)',
+          gray: 'color-mix(in srgb, var(--penguin-gray), transparent calc(100% - (<alpha-value> * 100%)))',
         }
       },
       animation: {
