@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { formatRelativeTime } from "../lib/utils";
 import TypewriterTitle from "../components/TypewriterTitle";
+import HighFiveAnimation from "../components/HighFiveAnimation";
 
 interface Poll {
   id: string;
@@ -20,6 +21,7 @@ const Home: React.FC = () => {
   const [filter, setFilter] = useState<"hot" | "popular" | "latest">("hot");
   const [polls, setPolls] = useState<Poll[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showFire, setShowFire] = useState(false);
 
   useEffect(() => {
     fetchPolls();
@@ -28,7 +30,6 @@ const Home: React.FC = () => {
   const fetchPolls = async () => {
     setLoading(true);
     try {
-      // 투표, 옵션, 그리고 각 옵션에 대한 투표 개수를 한꺼번에 가져옵니다.
       const { data, error } = await supabase
         .from("polls")
         .select(
@@ -94,9 +95,8 @@ const Home: React.FC = () => {
         const diffA = Math.abs(ratioA - 0.5);
         const diffB = Math.abs(ratioB - 0.5);
 
-        // 팽팽한 정도(0.5에 가까운 순)로 정렬
         if (diffA !== diffB) return diffA - diffB;
-        return b.total_votes - a.total_votes; // 팽팽함이 같다면 투표 많은 순
+        return b.total_votes - a.total_votes;
       });
     }
     if (filter === "popular") {
@@ -257,12 +257,15 @@ const Home: React.FC = () => {
         </div>
       )}
 
-      <Link
-        to="/create"
-        className="fixed bottom-8 right-8 w-16 h-16 md:w-20 md:h-20 bg-penguin-yellow text-penguin-black rounded-full text-4xl md:text-5xl shadow-2xl flex items-center justify-center hover:bg-penguin-black hover:text-penguin-yellow hover:scale-110 active:scale-95 transition-all z-20 border-4 md:border-8 border-white"
-      >
-        <span className="mb-1 font-black">+</span>
-      </Link>
+      {/* 액션 버튼 그룹 (Create 버튼만 유지) */}
+      <div className="fixed bottom-8 right-8 z-20">
+        <Link 
+          to="/create" 
+          className="w-16 h-16 md:w-20 md:h-20 bg-penguin-yellow text-penguin-black rounded-full text-4xl md:text-5xl shadow-2xl flex items-center justify-center hover:bg-penguin-black hover:text-penguin-yellow hover:scale-110 active:scale-95 transition-all border-4 md:border-8 border-white"
+        >
+          <span className="mb-1 font-black">+</span>
+        </Link>
+      </div>
     </div>
   );
 };

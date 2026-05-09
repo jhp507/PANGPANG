@@ -22,7 +22,7 @@ const TypewriterTitle = () => {
         <span className="animate-pulse">|</span>
       </h2>
       <p className="text-gray-500 font-bold mt-2 text-xs md:text-base">
-        세상의 모든 논쟁, 1초 만에 종결하는 팡팡 투표! 🐧
+        세상의 모든 논쟁, 1초 만에 종결하는 팽팽 투표! 🐧
       </p>
     </div>
   );

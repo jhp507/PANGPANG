@@ -8,6 +8,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import DbTest from "./pages/DbTest";
 import LogoLink from "./components/LogoLink";
+import FireButton from "./components/FireButton";
 
 function App() {
   const [dimensions, setDimensions] = useState({
@@ -94,6 +95,8 @@ function App() {
             <Route path="/db" element={<DbTest />} />
           </Routes>
         </main>
+
+        <FireButton />
 
         <footer className="border-t py-8 mt-12 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center text-gray-400 text-sm">
