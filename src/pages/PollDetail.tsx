@@ -184,7 +184,7 @@ const PollDetail: React.FC = () => {
   const isHot = total >= 10 && percentA >= 45 && percentA <= 55;
 
   return (
-    <div className="px-2 py-4 max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto">
       <div className="mb-6 px-2">
         <Link
           to="/"

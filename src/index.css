@@ -54,7 +54,53 @@ body {
   animation: star-wiggle 0.8s ease-in-out infinite;
 }
 
-/* 펭귄 배경 배회 애니메이션 (전체 화면) */
+/* 불꽃 세로줄 애니메이션 (연속 흐름) */
+/* 불꽃 세로줄 애니메이션 (좌우 흔들림) */
+@keyframes fire-wiggle {
+  0%, 100% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+}
+
+.fire-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  z-index: -3;
+  pointer-events: none;
+  opacity: 0.15;
+  height: 100vh;
+  padding: 10px 0;
+  width: 40px; /* 고정 너비 할당 */
+  flex-shrink: 0;
+}
+
+.fire-emoji {
+  display: inline-block;
+  animation: fire-wiggle 2s ease-in-out infinite;
+}
+
+
+
+/* 펭귄 배경 배회 애니메이션 (왼쪽 시작) */
+@keyframes penguin-wander-left {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(15vw, 20vh) rotate(20deg); }
+  40% { transform: translate(30vw, -10vh) rotate(-15deg); }
+  60% { transform: translate(10vw, 30vh) rotate(15deg); }
+  80% { transform: translate(25vw, 5vh) rotate(-20deg); }
+}
+
+/* 펭귄 배경 배회 애니메이션 (오른쪽 시작) */
+@keyframes penguin-wander-right {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(-15vw, 25vh) rotate(-20deg); }
+  40% { transform: translate(-35vw, -5vh) rotate(15deg); }
+  60% { transform: translate(-10vw, 35vh) rotate(-15deg); }
+  80% { transform: translate(-20vw, 10vh) rotate(20deg); }
+}
+
+/* 펭귄 배경 배회 애니메이션 (전체 컨텐츠 영역) */
 @keyframes penguin-wander-left {
   0%, 100% { top: 10%; left: 5%; transform: rotate(0deg); }
   33% { top: 60%; left: 80%; transform: rotate(10deg); }
@@ -68,21 +114,21 @@ body {
 }
 
 .bg-penguin-left {
-  position: fixed;
+  position: absolute;
   width: 120px;
   opacity: 0.4;
   pointer-events: none;
-  z-index: -1;
+  z-index: -2;
   animation: penguin-wander-left 20s linear infinite;
   filter: blur(0.5px);
 }
 
 .bg-penguin-right {
-  position: fixed;
+  position: absolute;
   width: 120px;
   opacity: 0.4;
   pointer-events: none;
-  z-index: -1;
+  z-index: -2;
   animation: penguin-wander-right 25s linear infinite;
   filter: blur(0.5px);
 }

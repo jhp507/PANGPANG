@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import PollDetail from "./pages/PollDetail";
 import CreatePoll from "./pages/CreatePoll";
@@ -8,21 +9,54 @@ import "./App.css";
 import DbTest from "./pages/DbTest";
 
 function App() {
+  const [dimensions, setDimensions] = useState({ 
+    cols: typeof window !== 'undefined' ? Math.ceil(window.innerWidth / 40) : 20, 
+    rows: typeof window !== 'undefined' ? Math.ceil(window.innerHeight / 30) : 20 
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        cols: Math.ceil(window.innerWidth / 40),
+        rows: Math.ceil(window.innerHeight / 30)
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
-        {/* 배경에서 떠다니는 펭귄들 */}
-        <img 
-          src="/highpenguin_left.PNG" 
-          alt="Floating Penguin Left" 
-          className="bg-penguin-left"
-        />
-        <img 
-          src="/highpenguin_right.PNG" 
-          alt="Floating Penguin Right" 
-          className="bg-penguin-right"
-        />
+        {/* 배경 영역 */}
+        <div className="absolute inset-0 w-full h-full z-[-1] flex overflow-hidden">
+          <img 
+            src="/highpenguin_left.PNG" 
+            alt="Floating Penguin Left" 
+            className="bg-penguin-left"
+          />
+          <img 
+            src="/highpenguin_right.PNG" 
+            alt="Floating Penguin Right" 
+            className="bg-penguin-right"
+          />
+          
+          {/* 불꽃 동적 배치 */}
+          {Array.from({ length: dimensions.cols }).map((_, i) => (
+            <div key={i} className="flex flex-col justify-between h-full" style={{ width: '40px', flexShrink: 0 }}>
+              {Array.from({ length: dimensions.rows }).map((_, j) => (
+                <span 
+                  key={j} 
+                  className="fire-emoji inline-block opacity-15"
+                  style={{ animationDelay: `${Math.random() * 2}s` }}
+                >
+                  🔥
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
         
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">

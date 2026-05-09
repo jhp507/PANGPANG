@@ -119,7 +119,7 @@ const Management: React.FC = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="px-2 py-4 max-w-md mx-auto">
+      <div className="py-4 max-w-md mx-auto">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-black mb-3 text-penguin-black">
             관리자 인증
