@@ -71,9 +71,9 @@ const Management: React.FC = () => {
             />
           </div>
           <button type="submit" className="w-full py-5 bg-penguin-black text-penguin-yellow rounded-[1.5rem] font-black text-xl shadow-xl shadow-gray-200 hover:bg-penguin-yellow hover:text-penguin-black active:scale-[0.98] transition-all mt-4">
-            인증 완료
+            본인 확인
           </button>
-          <Link to={`/poll/${id}`} className="block text-center text-sm font-bold text-gray-300 hover:text-gray-500 transition-colors">돌아가기</Link>
+          <Link to={`/poll/${id}`} className="block text-center text-sm font-bold text-penguin-black hover:opacity-70 transition-all">돌아가기</Link>
         </form>
       </div>
     );
