@@ -81,30 +81,33 @@ const Home: React.FC = () => {
       setLoading(false);
     }
   };
-const getSortedPolls = () => {
-  const sorted = [...polls];
-  if (filter === "hot") {
-    return sorted.sort((a, b) => {
-      const getIsHot = (p: Poll) => p.total_votes >= 10 && (p.options[0].vote_count / p.total_votes) >= 0.45 && (p.options[0].vote_count / p.total_votes) <= 0.55;
-      const isHotA = getIsHot(a);
-      const isHotB = getIsHot(b);
+  const getSortedPolls = () => {
+    const sorted = [...polls];
+    if (filter === "hot") {
+      return sorted.sort((a, b) => {
+        const getIsHot = (p: Poll) =>
+          p.total_votes >= 10 &&
+          p.options[0].vote_count / p.total_votes >= 0.45 &&
+          p.options[0].vote_count / p.total_votes <= 0.55;
+        const isHotA = getIsHot(a);
+        const isHotB = getIsHot(b);
 
-      if (isHotA && !isHotB) return -1;
-      if (!isHotA && isHotB) return 1;
+        if (isHotA && !isHotB) return -1;
+        if (!isHotA && isHotB) return 1;
 
-      if (a.total_votes === 0 && b.total_votes === 0) return 0;
-      if (a.total_votes === 0) return 1;
-      if (b.total_votes === 0) return -1;
+        if (a.total_votes === 0 && b.total_votes === 0) return 0;
+        if (a.total_votes === 0) return 1;
+        if (b.total_votes === 0) return -1;
 
-      const ratioA = a.options[0].vote_count / a.total_votes;
-      const ratioB = b.options[0].vote_count / b.total_votes;
-      const diffA = Math.abs(ratioA - 0.5);
-      const diffB = Math.abs(ratioB - 0.5);
+        const ratioA = a.options[0].vote_count / a.total_votes;
+        const ratioB = b.options[0].vote_count / b.total_votes;
+        const diffA = Math.abs(ratioA - 0.5);
+        const diffB = Math.abs(ratioB - 0.5);
 
-      if (diffA !== diffB) return diffA - diffB;
-      return b.total_votes - a.total_votes;
-    });
-  }
+        if (diffA !== diffB) return diffA - diffB;
+        return b.total_votes - a.total_votes;
+      });
+    }
 
     if (filter === "popular") {
       return sorted.sort((a, b) => b.total_votes - a.total_votes);
@@ -184,11 +187,10 @@ const getSortedPolls = () => {
 
             return (
               <Link
-              key={poll.id}
-              to={`/poll/${poll.id}`}
-              className="group block bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all border-2 border-transparent hover:border-penguin-yellow"
+                key={poll.id}
+                to={`/poll/${poll.id}`}
+                className="group block bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all border-2 border-transparent hover:border-penguin-yellow"
               >
-
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex gap-2 h-6">
                     {isHot && (
@@ -267,8 +269,8 @@ const getSortedPolls = () => {
 
       {/* 액션 버튼 그룹 (Create 버튼만 유지) */}
       <div className="fixed bottom-8 right-8 z-20">
-        <Link 
-          to="/create" 
+        <Link
+          to="/create"
           className="w-16 h-16 md:w-20 md:h-20 bg-penguin-yellow text-penguin-black rounded-full text-4xl md:text-5xl shadow-2xl flex items-center justify-center hover:bg-penguin-black hover:text-penguin-yellow hover:scale-110 active:scale-95 transition-all border-4 md:border-8 border-white"
         >
           <span className="mb-1 font-black">+</span>
