@@ -12,9 +12,8 @@ const TopButton = () => {
 
   return (
     <>
-      {/* Home일 때는 + 버튼 위(bottom-28), 다른 페이지는 구석(bottom-8) */}
       <div
-        className={`fixed ${isHome ? "bottom-24" : "bottom-8"} right-8 z-20`}
+        className={`fixed ${isHome ? "bottom-20" : "bottom-4"} right-4 z-20`}
       >
         <button
           onClick={scrollToTop}

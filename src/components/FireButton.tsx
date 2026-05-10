@@ -9,8 +9,7 @@ const FireButton = () => {
 
   return (
     <>
-      {/* Home일 때는 + 버튼 위(bottom-28), 다른 페이지는 구석(bottom-8) */}
-      <div className={`fixed bottom-8 left-4 z-20`}>
+      <div className={`fixed bottom-4 left-2 z-20`}>
         {/* 토스트 메시지 */}
         <div className="absolute -top-6 left-4 bg-black/70 text-white text-xs font-black px-3 py-1.5 rounded-full animate-pulse whitespace-nowrap toast-tail pointer-events-none">
           눌러보세요!
