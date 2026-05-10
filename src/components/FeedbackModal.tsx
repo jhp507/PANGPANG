@@ -30,6 +30,11 @@ const FeedbackModal: React.FC<Props> = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleClose = () => {
+    setFeedback('');
+    onClose();
+  };
+
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div className="bg-white p-6 rounded-[2rem] w-full max-w-sm shadow-2xl">
@@ -47,7 +52,7 @@ const FeedbackModal: React.FC<Props> = ({ isOpen, onClose }) => {
         />
         <div className="text-right text-xs text-gray-400 font-bold mb-4">{feedback.length}/200</div>
         <div className="flex gap-2">
-          <button onClick={onClose} className="flex-1 py-3 bg-gray-100 rounded-xl font-bold">닫기</button>
+          <button onClick={handleClose} className="flex-1 py-3 bg-gray-100 rounded-xl font-bold">닫기</button>
           <button onClick={handleSubmit} className="flex-1 py-3 bg-penguin-yellow rounded-xl font-black">보내기</button>
         </div>
       </div>
