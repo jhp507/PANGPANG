@@ -130,7 +130,7 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className="px-2 py-4">
+    <div className="py-4">
       <TypewriterTitle />
       <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
         {[
