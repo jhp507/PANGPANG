@@ -13,16 +13,17 @@ const DbTest: React.FC = () => {
     { name: 'polls', status: 'loading' },
     { name: 'poll_options', status: 'loading' },
     { name: 'votes', status: 'loading' },
+    { name: 'feedbacks', status: 'loading' },
   ]);
   const [polls, setPolls] = useState<any[]>([]);
 
   useEffect(() => {
     const checkTables = async () => {
-      const tables = ['polls', 'poll_options', 'votes'];
+      const tables = ['polls', 'poll_options', 'votes', 'feedbacks'];
       
       for (const tableName of tables) {
         try {
-          const { error, data } = await supabase
+          const { error } = await supabase
             .from(tableName)
             .select('count', { count: 'exact', head: true });
 

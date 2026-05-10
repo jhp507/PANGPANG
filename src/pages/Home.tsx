@@ -269,13 +269,12 @@ const Home: React.FC = () => {
 
       {/* 액션 버튼 그룹 (Create 버튼만 유지) */}
       <div className="fixed bottom-8 right-6 z-20">
-        <Link 
-          to="/create" 
+        <Link
+          to="/create"
           className="w-12 h-12 bg-penguin-yellow text-penguin-black rounded-full text-2xl shadow-2xl flex items-center justify-center hover:bg-penguin-black hover:text-penguin-yellow hover:scale-110 active:scale-95 transition-all border-4 border-white"
         >
           <span className="mb-1 font-black">+</span>
         </Link>
-
       </div>
     </div>
   );
