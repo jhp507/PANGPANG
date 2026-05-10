@@ -189,7 +189,7 @@ const Home: React.FC = () => {
               <Link
                 key={poll.id}
                 to={`/poll/${poll.id}`}
-                className="group block bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all border-2 border-transparent hover:border-penguin-yellow"
+                className="group block bg-white/50 backdrop-blur-[2px] p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all border-2 border-transparent hover:border-penguin-yellow"
               >
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex gap-2 h-6">
