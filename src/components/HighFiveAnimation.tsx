@@ -14,7 +14,7 @@ const HighFiveAnimation: React.FC<{ onComplete: () => void }> = ({ onComplete })
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm overflow-hidden pointer-events-none h-[100dvh]">
       <style>{`
         @keyframes penguinLeft {
           0% { transform: translateX(-150%) rotate(-20deg); opacity: 0; }
