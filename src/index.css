@@ -54,6 +54,17 @@ body {
   animation: star-wiggle 0.8s ease-in-out infinite;
 }
 
+/* 토스트 꼬리 스타일 */
+.toast-tail::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 10px;
+  border-width: 6px 6px 0 6px;
+  border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+  border-style: solid;
+}
+
 /* 불꽃 세로줄 애니메이션 (연속 흐름) */
 /* 불꽃 세로줄 애니메이션 (좌우 흔들림) */
 @keyframes fire-wiggle {
