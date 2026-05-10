@@ -37,6 +37,17 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
         {/* 배경 영역 */}
+        <img
+          src="/pangpang_logo_gbr.png"
+          alt="Floating Penguin Left"
+          className="bg-penguin-left"
+        />
+        <img
+          src="/pangpang_logo_gbr.png"
+          alt="Floating Penguin Right"
+          className="bg-penguin-right"
+        />
+
         <div className="absolute inset-0 w-full h-full z-[-1] overflow-hidden">
           {/* 불꽃 동적 배치 */}
           <div className="flex w-full h-full">
