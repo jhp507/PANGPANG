@@ -13,9 +13,11 @@ import TopButton from "./components/TopButton";
 import FeedbackModal from "./components/FeedbackModal";
 
 function App() {
-  const [dimensions, setDimensions] = useState({ 
-    cols: typeof window !== 'undefined' ? Math.ceil(window.innerWidth / 40) : 20, 
-    rows: typeof window !== 'undefined' ? Math.ceil(window.innerHeight / 30) : 20 
+  const [dimensions, setDimensions] = useState({
+    cols:
+      typeof window !== "undefined" ? Math.ceil(window.innerWidth / 40) : 20,
+    rows:
+      typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
   });
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
@@ -23,11 +25,11 @@ function App() {
     const handleResize = () => {
       setDimensions({
         cols: Math.ceil(window.innerWidth / 40),
-        rows: Math.ceil(window.innerHeight / 30)
+        rows: Math.ceil(window.innerHeight / 30),
       });
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -39,10 +41,14 @@ function App() {
           {/* 불꽃 동적 배치 */}
           <div className="flex w-full h-full">
             {Array.from({ length: dimensions.cols }).map((_, i) => (
-              <div key={i} className="flex flex-col justify-between h-full" style={{ width: '40px', flexShrink: 0 }}>
+              <div
+                key={i}
+                className="flex flex-col justify-between h-full"
+                style={{ width: "40px", flexShrink: 0 }}
+              >
                 {Array.from({ length: dimensions.rows }).map((_, j) => (
-                  <span 
-                    key={j} 
+                  <span
+                    key={j}
                     className="fire-emoji inline-block opacity-15"
                     style={{ animationDelay: `${Math.random() * 2}s` }}
                   >
@@ -53,13 +59,18 @@ function App() {
             ))}
           </div>
         </div>
-        
+
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <LogoLink />
             <nav className="flex gap-6">
-              <Link to="/" className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors">홈</Link>
-              <Link to="/create" className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors">투표 만들기</Link>
+              {/* <Link to="/" className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors">홈</Link> */}
+              <Link
+                to="/create"
+                className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors"
+              >
+                투표 만들기
+              </Link>
             </nav>
           </div>
         </header>
@@ -79,11 +90,11 @@ function App() {
 
         <footer className="border-t py-8 mt-12 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <button 
-            onClick={() => setIsFeedbackOpen(true)}
-            className="mb-6 px-6 py-2 bg-penguin-black text-penguin-yellow rounded-full text-sm font-black hover:scale-105 transition-transform"
+            <button
+              onClick={() => setIsFeedbackOpen(true)}
+              className="mb-6 px-6 py-2 bg-penguin-black text-penguin-yellow rounded-full text-sm font-black hover:scale-105 transition-transform"
             >
-            팽팽이에게 의견 보내기 🐧
+              팽팽이에게 의견 보내기 🐧
             </button>
 
             <p className="text-gray-400 text-sm">
@@ -92,7 +103,10 @@ function App() {
           </div>
         </footer>
 
-        <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
+        <FeedbackModal
+          isOpen={isFeedbackOpen}
+          onClose={() => setIsFeedbackOpen(false)}
+        />
       </div>
     </Router>
   );
