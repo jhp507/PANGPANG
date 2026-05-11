@@ -27,7 +27,7 @@
     "typescript": "~5.5.3",
     "vite": "^5.4.8"
   },
-  "description": "> **누르고, 보고, 끝. 1초 컷 투표 종결자 팡팡.** > 고민은 배송만 늦출 뿐, 결론은 PANGPANG이 내줍니다.",
+  "description": "> **누르고, 보고, 끝. 1초 컷 투표 종결자 팽팽.** > 고민은 배송만 늦출 뿐, 결론은 PANGPANG이 내줍니다.",
   "main": "eslint.config.js",
   "repository": {
     "type": "git",
