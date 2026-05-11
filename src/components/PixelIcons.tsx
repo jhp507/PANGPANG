@@ -69,20 +69,17 @@ export const CowboyHatIcon = () => (
   </PixelIconWrapper>
 );
 
-// 5. 요리사 모자
+// 5. 요리사 모자 (주름 디테일)
 export const ChefHatIcon = () => (
   <PixelIconWrapper>
-    <path d="M6 3H18V6H20V12H4V6H6V3Z" fill="black" />
-    <path d="M7 4H17V6H19V11H5V6H7V4Z" fill="white" />
-    <path d="M8 5H16V7H18V10H6V7H8V5Z" fill="#F9FAFB" />
-    <rect x="7" y="11" width="10" height="4" fill="#E5E7EB" />
-    <rect x="9" y="6" width="1" height="4" fill="#F3F4F6" />
-    <rect x="12" y="6" width="1" height="4" fill="#F3F4F6" />
-    <rect x="14" y="6" width="1" height="4" fill="#F3F4F6" />
-    <rect x="7" y="14" width="10" height="1" fill="#D1D5DB" />
-    <rect x="7" y="11" width="1" height="4" fill="black" />
-    <rect x="16" y="11" width="1" height="4" fill="black" />
-    <rect x="7" y="15" width="10" height="1" fill="black" />
+    <path d="M6 3H18V6H20V12H4V6H6V3Z" fill="#D1D5DB" />
+    <path d="M7 4H17V11H5V6H7V4Z" fill="white" />
+    <rect x="8" y="5" width="1" height="5" fill="#F3F4F6" />
+    <rect x="12" y="5" width="1" height="5" fill="#F3F4F6" />
+    <rect x="15" y="5" width="1" height="5" fill="#F3F4F6" />
+    <rect x="7" y="12" width="10" height="5" fill="#9CA3AF" />{" "}
+    {/* 하단 밴드 외곽 */}
+    <rect x="8" y="12" width="8" height="4" fill="#E5E7EB" /> {/* 하단 밴드 */}
   </PixelIconWrapper>
 );
 
@@ -152,19 +149,19 @@ export const RedBucketHatIcon = () => (
 );
 
 // 11. 조선시대 갓
-export const KoreanGatIcon = () => (
-  <PixelIconWrapper>
-    <rect x="8" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
-    <rect x="15" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
-    <rect x="8" y="14" width="1" height="1" fill="#FDE047" />
-    <rect x="15" y="14" width="1" height="1" fill="#FDE047" />
-    <rect x="2" y="10" width="20" height="2" fill="#000000" />
-    <rect x="3" y="11" width="18" height="1" fill="#1A1A1A" />
-    <rect x="8" y="3" width="8" height="8" fill="#000000" />
-    <rect x="9" y="4" width="6" height="6" fill="#1A1A1A" />
-    <rect x="9" y="4" width="2" height="1" fill="#333333" />
-  </PixelIconWrapper>
-);
+// export const KoreanGatIcon = () => (
+//   <PixelIconWrapper>
+//     <rect x="8" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
+//     <rect x="15" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
+//     <rect x="8" y="14" width="1" height="1" fill="#FDE047" />
+//     <rect x="15" y="14" width="1" height="1" fill="#FDE047" />
+//     <rect x="2" y="10" width="20" height="2" fill="#000000" />
+//     <rect x="3" y="11" width="18" height="1" fill="#1A1A1A" />
+//     <rect x="8" y="3" width="8" height="8" fill="#000000" />
+//     <rect x="9" y="4" width="6" height="6" fill="#1A1A1A" />
+//     <rect x="9" y="4" width="2" height="1" fill="#333333" />
+//   </PixelIconWrapper>
+// );
 
 // 12. 회색 야구 헬멧
 export const BaseballHelmetIcon = () => (
@@ -228,13 +225,14 @@ export const NonLaIcon = () => (
   </PixelIconWrapper>
 );
 
-// 17. 신사 모자 (Top Hat)
+// 18. 신사 모자 (Top Hat - 실크 광택 추가)
 export const TopHatIcon = () => (
   <PixelIconWrapper>
-    <rect x="7" y="3" width="10" height="9" fill="#1A1A1A" />
-    <rect x="4" y="12" width="16" height="2" fill="#1A1A1A" />
-    <rect x="7" y="10" width="10" height="1" fill="#4B5563" />
-    <rect x="8" y="4" width="2" height="6" fill="#333333" />
+    <rect x="6" y="3" width="12" height="10" fill="#000000" />
+    <rect x="7" y="3" width="2" height="9" fill="#333333" /> {/* 왼쪽 광택 */}
+    <rect x="6" y="10" width="12" height="2" fill="#7F1D1D" /> {/* 붉은 띠 */}
+    <rect x="3" y="12" width="18" height="3" fill="#000000" />
+    <rect x="4" y="12" width="16" height="1" fill="#333333" />
   </PixelIconWrapper>
 );
 
@@ -301,21 +299,29 @@ export const HachimakiIcon = () => (
   </PixelIconWrapper>
 );
 
-// 24. 말하는 모자 (Sorting Hat - 해리포터 스타일)
+// 25. 말하는 모자 (Sorting Hat - 해리포터 스타일)
 export const SortingHatIcon = () => (
   <PixelIconWrapper>
-    <path d="M12 2H15V4H14V6H16V8H18V10H6V8H8V6H10V4H12V2Z" fill="#78350F" />
-    <path d="M13 3H14V5H13V7H15V9H17V10H7V9H9V7H11V5H13V3Z" fill="#92400E" />
-    <rect x="9" y="6" width="2" height="1" fill="#451A03" />
-    <rect x="14" y="6" width="2" height="1" fill="#451A03" />
-    <path d="M9 8H16V9L15 10H8L9 8Z" fill="#451A03" />
-    <path d="M2 10H22V13H2V10Z" fill="#78350F" />
-    <rect x="3" y="11" width="18" height="1" fill="#92400E" />
-    <rect x="1" y="11" width="1" height="2" fill="#451A03" />
-    <rect x="22" y="11" width="1" height="2" fill="#451A03" />
-    <rect x="2" y="13" width="20" height="1" fill="#451A03" />
-    <rect x="13" y="4" width="1" height="2" fill="#B45309" opacity="0.3" />
-    <rect x="4" y="11" width="6" height="1" fill="#B45309" opacity="0.2" />
+    <path
+      d="M12 2L15 4V6L13 8L16 10L18 13H6L9 10L7 8L10 5L12 2Z"
+      fill="#451A03"
+    />
+    <path
+      d="M12 3L14 5V6L12 8L15 10L16 12H8L10 10L8 8L11 5L12 3Z"
+      fill="#78350F"
+    />
+    {/* 눈 주름 */}
+    <rect x="9" y="8" width="2" height="1" fill="#271101" />
+    <rect x="13" y="8" width="2" height="1" fill="#271101" />
+    {/* 입 주름 */}
+    <path
+      d="M9 11C9 11 10 12 12 12C14 12 15 11 15 11"
+      stroke="#271101"
+      strokeWidth="1"
+    />
+    {/* 챙 */}
+    <rect x="2" y="13" width="20" height="3" fill="#451A03" />
+    <rect x="3" y="13" width="18" height="1" fill="#92400E" />
   </PixelIconWrapper>
 );
 
