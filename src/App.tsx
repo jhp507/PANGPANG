@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import PollDetail from "./pages/PollDetail";
 import CreatePoll from "./pages/CreatePoll";
 import Management from "./pages/Management";
+import Introduce from "./pages/Introduce";
 import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import DbTest from "./pages/DbTest";
@@ -75,7 +76,12 @@ function App() {
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <LogoLink />
             <nav className="flex gap-6">
-              {/* <Link to="/" className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors">홈</Link> */}
+              <Link
+                to="/introduce"
+                className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors"
+              >
+                소개
+              </Link>
               <Link
                 to="/create"
                 className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors"
@@ -89,6 +95,7 @@ function App() {
         <main className="flex-1 max-w-4xl mx-auto py-6 px-4 w-full">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/introduce" element={<Introduce />} />
             <Route path="/poll/:id" element={<PollDetail />} />
             <Route path="/create" element={<CreatePoll />} />
             <Route path="/poll/:id/manage" element={<Management />} />
