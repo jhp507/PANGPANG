@@ -149,19 +149,19 @@ export const RedBucketHatIcon = () => (
 );
 
 // 11. 조선시대 갓
-// export const KoreanGatIcon = () => (
-//   <PixelIconWrapper>
-//     <rect x="8" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
-//     <rect x="15" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
-//     <rect x="8" y="14" width="1" height="1" fill="#FDE047" />
-//     <rect x="15" y="14" width="1" height="1" fill="#FDE047" />
-//     <rect x="2" y="10" width="20" height="2" fill="#000000" />
-//     <rect x="3" y="11" width="18" height="1" fill="#1A1A1A" />
-//     <rect x="8" y="3" width="8" height="8" fill="#000000" />
-//     <rect x="9" y="4" width="6" height="6" fill="#1A1A1A" />
-//     <rect x="9" y="4" width="2" height="1" fill="#333333" />
-//   </PixelIconWrapper>
-// );
+export const KoreanGatIcon = () => (
+  <PixelIconWrapper>
+    <rect x="8" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
+    <rect x="15" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
+    <rect x="8" y="14" width="1" height="1" fill="#FDE047" />
+    <rect x="15" y="14" width="1" height="1" fill="#FDE047" />
+    <rect x="2" y="10" width="20" height="2" fill="#000000" />
+    <rect x="3" y="11" width="18" height="1" fill="#1A1A1A" />
+    <rect x="8" y="3" width="8" height="8" fill="#000000" />
+    <rect x="9" y="4" width="6" height="6" fill="#1A1A1A" />
+    <rect x="9" y="4" width="2" height="1" fill="#333333" />
+  </PixelIconWrapper>
+);
 
 // 12. 회색 야구 헬멧
 export const BaseballHelmetIcon = () => (
