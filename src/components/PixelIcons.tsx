@@ -1,7 +1,19 @@
 import React from "react";
 
-const PixelIconWrapper = ({ children, className = "w-full h-full" }: { children: React.ReactNode, className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none" xmlns="http://www.w3.org/2000/svg" style={{ imageRendering: 'pixelated' }}>
+const PixelIconWrapper = ({
+  children,
+  className = "w-full h-full",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    className={className}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ imageRendering: "pixelated" }}
+  >
     {children}
   </svg>
 );
@@ -35,13 +47,12 @@ export const WizardHatIcon = () => (
 // 3. 황금 왕관
 export const CrownIcon = () => (
   <PixelIconWrapper>
-    <path d="M4 6L7 10L12 6L17 10L20 6V16H4V6Z" fill="#EAB308" />
-    <path d="M4 6L5 7V15H6V8L8 11L12 7L16 11L18 8V15H19V7L20 6H19L17 8L12 4L7 8L5 6H4Z" fill="#FDE047" />
-    <rect x="4" y="14" width="16" height="2" fill="#CA8A04" />
-    <rect x="11" y="10" width="2" height="2" fill="#EF4444" />
-    <rect x="6" y="11" width="1" height="1" fill="#3B82F6" />
-    <rect x="17" y="11" width="1" height="1" fill="#10B981" />
-    <rect x="18" y="7" width="1" height="1" fill="white" />
+    <path d="M4 6L7 10L12 5L17 10L20 6V15H4V6Z" fill="#CA8A04" />
+    <path d="M5 7L7 9L12 6L17 9L19 7V14H5V7Z" fill="#EAB308" />
+    <rect x="5" y="12" width="14" height="2" fill="#FACC15" />
+    <rect x="7" y="11" width="2" height="2" fill="#EF4444" />
+    <rect x="11" y="11" width="2" height="2" fill="#3B82F6" />
+    <rect x="15" y="11" width="2" height="2" fill="#10B981" />
   </PixelIconWrapper>
 );
 
@@ -90,60 +101,48 @@ export const SantaHatIcon = () => (
   </PixelIconWrapper>
 );
 
-// 8. 노란색 베레모
+// 7. 노란색 베레모
 export const YellowBeretIcon = () => (
   <PixelIconWrapper>
-    <rect x="8" y="8" width="8" height="6" fill="#EAB308" />
-    <rect x="7" y="9" width="10" height="4" fill="#FACC15" />
-    <rect x="11" y="7" width="2" height="2" fill="#CA8A04" />
-    <rect x="8" y="9" width="4" height="1" fill="#FDE047" />
+    <rect x="11" y="5" width="2" height="2" fill="#CA8A04" />
+    <path d="M6 7H18V9H20V12H4V9H6V7Z" fill="#EAB308" />
+    <path d="M7 8H17V10H19V11H5V10H7V8Z" fill="#FACC15" />
+    <rect x="5" y="12" width="14" height="1" fill="#CA8A04" />
   </PixelIconWrapper>
 );
 
-// 9. 레프러콘 모자
+// 8. 레프러콘 모자
 export const LeprechaunHatIcon = () => (
   <PixelIconWrapper>
-    <rect x="7" y="4" width="10" height="8" fill="#166534" />
-    <rect x="8" y="5" width="8" height="6" fill="#22C55E" />
-    <rect x="5" y="12" width="14" height="2" fill="#15803D" />
-    <rect x="7" y="10" width="10" height="2" fill="#1A1A1A" />
-    <rect x="11" y="10" width="2" height="2" fill="#FACC15" />
+    <rect x="7" y="4" width="10" height="9" fill="#166534" />
+    <rect x="8" y="5" width="8" height="7" fill="#22C55E" />
+    <rect x="7" y="10" width="10" height="2" fill="#111827" />
+    <rect x="10" y="10" width="4" height="2" fill="#FACC15" />
+    <rect x="11" y="10" width="2" height="1" fill="#111827" />
+    <rect x="4" y="13" width="16" height="2" fill="#166534" />
   </PixelIconWrapper>
 );
 
-// 10. 검은색 카우보이 모자 (챙 곡선 및 별 장식 추가)
+// 9. 검은색 카우보이 모자
 export const BlackCowboyHatIcon = () => (
   <PixelIconWrapper>
-    {/* 모자 본체 (Crown) */}
     <rect x="8" y="6" width="8" height="6" fill="#1A1A1A" />
     <rect x="9" y="5" width="6" height="1" fill="#333333" />
-
-    {/* 중앙 별 장식 (Sheriff Star) */}
     <rect x="11" y="7" width="2" height="3" fill="#FDE047" />
     <rect x="10" y="8" width="4" height="1" fill="#FDE047" />
     <rect x="11" y="8" width="1" height="1" fill="white" opacity="0.8" />
-
-    {/* 가죽 띠 */}
     <rect x="8" y="10" width="8" height="1" fill="#4B5563" />
-
-    {/* 위로 휘어진 챙 (Curved Brim) */}
-    {/* 중앙 평평한 부분 */}
     <rect x="6" y="11" width="12" height="2" fill="#333333" />
-    {/* 왼쪽 휘어지는 부분 */}
     <rect x="4" y="10" width="2" height="2" fill="#333333" />
     <rect x="3" y="9" width="1" height="1" fill="#1A1A1A" />
-    {/* 오른쪽 휘어지는 부분 */}
     <rect x="18" y="10" width="2" height="2" fill="#333333" />
     <rect x="20" y="9" width="1" height="1" fill="#1A1A1A" />
-
-    {/* 광택 및 명암 */}
     <rect x="9" y="7" width="1" height="2" fill="#4B5563" opacity="0.3" />
     <rect x="6" y="11" width="12" height="1" fill="#4B5563" opacity="0.3" />
   </PixelIconWrapper>
 );
 
-
-// 11. 빨간색 버킷햇
+// 10. 빨간색 버킷햇
 export const RedBucketHatIcon = () => (
   <PixelIconWrapper>
     <rect x="7" y="5" width="10" height="5" fill="#EF4444" />
@@ -152,7 +151,7 @@ export const RedBucketHatIcon = () => (
   </PixelIconWrapper>
 );
 
-// 12. 조선시대 갓
+// 11. 조선시대 갓
 export const KoreanGatIcon = () => (
   <PixelIconWrapper>
     <rect x="8" y="11" width="1" height="9" fill="#E5E7EB" opacity="0.5" />
@@ -167,7 +166,7 @@ export const KoreanGatIcon = () => (
   </PixelIconWrapper>
 );
 
-// 13. 회색 야구 헬멧
+// 12. 회색 야구 헬멧
 export const BaseballHelmetIcon = () => (
   <PixelIconWrapper>
     <path d="M8 6H16V8H18V13H6V8H8V6Z" fill="#4B5563" />
@@ -183,7 +182,7 @@ export const BaseballHelmetIcon = () => (
   </PixelIconWrapper>
 );
 
-// 14. 파란색 바이킹 모자
+// 13. 파란색 바이킹 모자
 export const VikingHatIcon = () => (
   <PixelIconWrapper>
     <path d="M3 5H6V7H9V11H3V5Z" fill="black" />
@@ -199,7 +198,7 @@ export const VikingHatIcon = () => (
   </PixelIconWrapper>
 );
 
-// 15. 솜브레로 (멕시코 전통 모자)
+// 14. 솜브레로 (멕시코 전통 모자)
 export const SombreroIcon = () => (
   <PixelIconWrapper>
     <rect x="8" y="4" width="8" height="6" fill="#D97706" />
@@ -210,7 +209,7 @@ export const SombreroIcon = () => (
   </PixelIconWrapper>
 );
 
-// 16. 페즈 (터키 전통 모자)
+// 15. 페즈 (터키 전통 모자)
 export const FezIcon = () => (
   <PixelIconWrapper>
     <path d="M8 5H16L17 12H7L8 5Z" fill="#B91C1C" />
@@ -220,7 +219,7 @@ export const FezIcon = () => (
   </PixelIconWrapper>
 );
 
-// 17. 논라 (베트남 전통 모자)
+// 16. 논라 (베트남 전통 모자)
 export const NonLaIcon = () => (
   <PixelIconWrapper>
     <path d="M12 4L3 13H21L12 4Z" fill="#FDE68A" />
@@ -229,7 +228,7 @@ export const NonLaIcon = () => (
   </PixelIconWrapper>
 );
 
-// 18. 신사 모자 (Top Hat)
+// 17. 신사 모자 (Top Hat)
 export const TopHatIcon = () => (
   <PixelIconWrapper>
     <rect x="7" y="3" width="10" height="9" fill="#1A1A1A" />
@@ -239,7 +238,7 @@ export const TopHatIcon = () => (
   </PixelIconWrapper>
 );
 
-// 19. 우샨카 (러시아 털모자)
+// 18. 우샨카 (러시아 털모자)
 export const UshankaIcon = () => (
   <PixelIconWrapper>
     <rect x="7" y="6" width="10" height="8" fill="#4B5563" />
@@ -250,7 +249,7 @@ export const UshankaIcon = () => (
   </PixelIconWrapper>
 );
 
-// 20. 경찰모
+// 19. 경찰모
 export const PoliceCapIcon = () => (
   <PixelIconWrapper>
     <rect x="6" y="7" width="12" height="5" fill="#1E3A8A" />
@@ -260,7 +259,7 @@ export const PoliceCapIcon = () => (
   </PixelIconWrapper>
 );
 
-// 21. 프로펠러 모자
+// 20. 프로펠러 모자
 export const PropellerHatIcon = () => (
   <PixelIconWrapper>
     <rect x="11" y="3" width="2" height="3" fill="black" />
@@ -271,7 +270,7 @@ export const PropellerHatIcon = () => (
   </PixelIconWrapper>
 );
 
-// 22. 학위모 (Graduation Cap)
+// 21. 학위모 (Graduation Cap)
 export const GraduationCapIcon = () => (
   <PixelIconWrapper>
     <path d="M3 8L12 5L21 8L12 11L3 8Z" fill="#1A1A1A" />
@@ -281,7 +280,7 @@ export const GraduationCapIcon = () => (
   </PixelIconWrapper>
 );
 
-// 23. 터번 (Turban)
+// 22. 터번 (Turban)
 export const TurbanIcon = () => (
   <PixelIconWrapper>
     <rect x="6" y="7" width="12" height="7" fill="#F3F4F6" />
@@ -291,7 +290,7 @@ export const TurbanIcon = () => (
   </PixelIconWrapper>
 );
 
-// 24. 일장기 머리띠 (Hachimaki)
+// 23. 일장기 머리띠 (Hachimaki)
 export const HachimakiIcon = () => (
   <PixelIconWrapper>
     <rect x="3" y="9" width="18" height="3" fill="white" />
@@ -302,34 +301,25 @@ export const HachimakiIcon = () => (
   </PixelIconWrapper>
 );
 
-// 25. 말하는 모자 (Sorting Hat - 해리포터 스타일)
+// 24. 말하는 모자 (Sorting Hat - 해리포터 스타일)
 export const SortingHatIcon = () => (
   <PixelIconWrapper>
-    {/* 모자 윗부분 (구부러진 고깔 형태) */}
     <path d="M12 2H15V4H14V6H16V8H18V10H6V8H8V6H10V4H12V2Z" fill="#78350F" />
     <path d="M13 3H14V5H13V7H15V9H17V10H7V9H9V7H11V5H13V3Z" fill="#92400E" />
-    
-    {/* 눈 (깊게 패인 주름) */}
     <rect x="9" y="6" width="2" height="1" fill="#451A03" />
     <rect x="14" y="6" width="2" height="1" fill="#451A03" />
-    
-    {/* 입 (비뚤어진 주름) */}
     <path d="M9 8H16V9L15 10H8L9 8Z" fill="#451A03" />
-    
-    {/* 넓고 구부러진 챙 (Wide, Wavy Brim) */}
     <path d="M2 10H22V13H2V10Z" fill="#78350F" />
     <rect x="3" y="11" width="18" height="1" fill="#92400E" />
     <rect x="1" y="11" width="1" height="2" fill="#451A03" />
     <rect x="22" y="11" width="1" height="2" fill="#451A03" />
     <rect x="2" y="13" width="20" height="1" fill="#451A03" />
-    
-    {/* 광택/하이라이트 */}
     <rect x="13" y="4" width="1" height="2" fill="#B45309" opacity="0.3" />
     <rect x="4" y="11" width="6" height="1" fill="#B45309" opacity="0.2" />
   </PixelIconWrapper>
 );
 
-// 7. 쥐 (Mouse)
+// 25. 쥐 (Mouse)
 export const MouseIcon = () => (
   <PixelIconWrapper>
     <rect x="4" y="4" width="6" height="6" fill="#9CA3AF" />
