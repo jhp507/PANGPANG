@@ -68,8 +68,8 @@ function AppContent() {
       </div>
 
       <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
-        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Left" className="bg-penguin-left" />
-        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Right" className="bg-penguin-right" />
+        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Left" className="bg-penguin-left z-10" />
+        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Right" className="bg-penguin-right z-10" />
 
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
