@@ -27,51 +27,49 @@ function AppContent() {
     const handleResize = () => {
       setDimensions({
         cols: Math.ceil(window.innerWidth / 40),
-        rows: Math.ceil(window.innerHeight / 30),
+        rows: Math.ceil(window.innerHeight / 30) + 2,
       });
     };
     window.addEventListener("resize", handleResize);
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
-        {/* 배경 영역 */}
-        <img
-          src="/pangpang_logo_gbr.png"
-          alt="Floating Penguin Left"
-          className="bg-penguin-left"
-        />
-        <img
-          src="/pangpang_logo_gbr.png"
-          alt="Floating Penguin Right"
-          className="bg-penguin-right"
-        />
-
-        <div className="absolute inset-0 w-full h-full z-[-1] overflow-hidden">
-          {/* 불꽃 동적 배치 */}
-          <div className="flex w-full h-full">
-            {Array.from({ length: dimensions.cols }).map((_, i) => (
-              <div
-                key={i}
-                className="flex flex-col justify-between h-full"
-                style={{ width: "40px", flexShrink: 0 }}
-              >
-                {Array.from({ length: dimensions.rows }).map((_, j) => (
-                  <span
-                    key={j}
-                    className="fire-emoji inline-block opacity-15"
-                    style={{ animationDelay: `${Math.random() * 2}s` }}
-                  >
-                    🔥
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
+      {/* 고정된 불꽃 배경 레이어 */}
+      <div className="fixed inset-0 w-full h-full z-[-1] overflow-hidden bg-white">
+        <div className="flex w-full h-full">
+          {Array.from({ length: dimensions.cols }).map((_, i) => (
+            <div
+              key={i}
+              className="flex flex-col h-full"
+              style={{ width: "40px", flexShrink: 0 }}
+            >
+              {Array.from({ length: dimensions.rows }).map((_, j) => (
+                <span
+                  key={j}
+                  className="fire-emoji inline-block opacity-15"
+                  style={{
+                    animationDelay: `${Math.random() * 2}s`,
+                    height: "30px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  🔥
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
+      </div>
+
+      <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
+        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Left" className="bg-penguin-left" />
+        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Right" className="bg-penguin-right" />
 
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
