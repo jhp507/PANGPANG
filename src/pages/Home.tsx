@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { formatRelativeTime } from "../lib/utils";
 import TypewriterTitle from "../components/TypewriterTitle";
@@ -17,8 +17,12 @@ interface Poll {
   total_votes: number;
 }
 
+type FilterType = "hot" | "popular" | "latest";
+
 const Home: React.FC = () => {
-  const [filter, setFilter] = useState<"hot" | "popular" | "latest">("hot");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = (searchParams.get("filter") as FilterType) || "hot";
+
   const [polls, setPolls] = useState<Poll[]>([]);
   const [loading, setLoading] = useState(true);
   const [showFire, setShowFire] = useState(false);
@@ -154,7 +158,7 @@ const Home: React.FC = () => {
         ].map((tab) => (
           <button
             key={tab.id as string}
-            onClick={() => setFilter(tab.id as any)}
+            onClick={() => setSearchParams({ filter: tab.id })}
             className={`px-5 py-2.5 rounded-full text-sm font-black transition-all whitespace-nowrap flex items-center ${
               filter === tab.id
                 ? "bg-penguin-yellow text-penguin-black shadow-md"
@@ -188,7 +192,7 @@ const Home: React.FC = () => {
             return (
               <Link
                 key={poll.id}
-                to={`/poll/${poll.id}`}
+                to={`/poll/${poll.id}?filter=${filter}`}
                 className="group block bg-white/50 backdrop-blur-[2px] p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all border-2 border-transparent hover:border-penguin-yellow"
               >
                 <div className="flex justify-between items-center mb-6">

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 
 const Management: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter") || "hot";
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
@@ -69,7 +71,7 @@ const Management: React.FC = () => {
       if (error) throw error;
 
       alert("성공적으로 수정되었습니다!");
-      navigate(`/poll/${poll.id}`);
+      navigate(`/poll/${poll.id}?filter=${filter}`);
     } catch (err: any) {
       alert("수정 중 오류가 발생했습니다: ");
     } finally {
@@ -93,7 +95,7 @@ const Management: React.FC = () => {
         if (error) throw error;
 
         alert("삭제되었습니다!");
-        navigate("/");
+        navigate(`/?filter=${filter}`);
       } catch (err: any) {
         alert("삭제 중 오류가 발생했습니다: " + err.message);
         setLoading(false);
@@ -169,7 +171,7 @@ const Management: React.FC = () => {
             본인 확인
           </button>
           <Link
-            to={`/poll/${id}`}
+            to={`/poll/${id}?filter=${filter}`}
             className="block text-center text-sm font-bold text-penguin-black hover:opacity-70 transition-all"
           >
             돌아가기

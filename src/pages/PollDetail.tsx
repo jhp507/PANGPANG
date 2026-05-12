@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { formatRelativeTime } from "../lib/utils";
 import HighFiveAnimation from "../components/HighFiveAnimation";
@@ -21,6 +21,9 @@ interface PollData {
 
 const PollDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter") || "hot";
+  const navigate = useNavigate();
   const [poll, setPoll] = useState<PollData | null>(null);
   const [loading, setLoading] = useState(true);
   const [voterId, setVoterId] = useState<string>("");
@@ -163,7 +166,10 @@ const PollDetail: React.FC = () => {
       <div className="p-8 text-center font-bold text-penguin-black">
         투표를 찾을 수 없습니다.
         <br />
-        <Link to="/" className="text-sm underline mt-4 inline-block">
+        <Link
+          to={`/?filter=${filter}`}
+          className="text-sm underline mt-4 inline-block"
+        >
           홈으로 돌아가기
         </Link>
       </div>
@@ -187,7 +193,7 @@ const PollDetail: React.FC = () => {
     <div className="max-w-2xl mx-auto">
       <div className="mb-6 px-2">
         <Link
-          to="/"
+          to={`/?filter=${filter}`}
           className="text-sm text-penguin-black hover:opacity-70 font-black transition-all flex items-center gap-2"
         >
           <span className="text-xl">←</span> 목록으로 돌아가기
@@ -336,7 +342,7 @@ const PollDetail: React.FC = () => {
 
       <div className="flex justify-between items-center px-4 md:px-8 gap-2">
         <Link
-          to={`/poll/${poll.id}/manage`}
+          to={`/poll/${poll.id}/manage?filter=${filter}`}
           className="text-[9px] min-[360px]:text-[10px] md:text-sm font-black text-penguin-black hover:opacity-70 underline underline-offset-4 md:underline-offset-8 transition-all whitespace-nowrap"
         >
           관리자 메뉴 (수정/삭제)

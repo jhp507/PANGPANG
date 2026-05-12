@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import PollDetail from "./pages/PollDetail";
@@ -13,12 +13,13 @@ import FireButton from "./components/FireButton";
 import TopButton from "./components/TopButton";
 import FeedbackModal from "./components/FeedbackModal";
 
-function App() {
+function AppContent() {
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter") || "hot";
+
   const [dimensions, setDimensions] = useState({
-    cols:
-      typeof window !== "undefined" ? Math.ceil(window.innerWidth / 40) : 20,
-    rows:
-      typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
+    cols: typeof window !== "undefined" ? Math.ceil(window.innerWidth / 40) : 20,
+    rows: typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
   });
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
@@ -34,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
         {/* 배경 영역 */}
@@ -77,13 +78,13 @@ function App() {
             <LogoLink />
             <nav className="flex gap-6">
               <Link
-                to="/introduce"
+                to={`/introduce?filter=${filter}`}
                 className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors"
               >
                 소개
               </Link>
               <Link
-                to="/create"
+                to={`/create?filter=${filter}`}
                 className="text-sm font-bold text-white/80 hover:text-penguin-yellow transition-colors"
               >
                 투표 만들기
@@ -114,18 +115,22 @@ function App() {
             >
               팽팽이에게 의견 보내기 🐧
             </button>
-
-            <p className="text-gray-400 text-sm">
-              © 2026 PANGPANG. All rights reserved.
+            <p className="text-gray-400 text-[10px] font-bold tracking-widest uppercase">
+              © 2024 MOJI. ALL RIGHTS RESERVED.
             </p>
           </div>
         </footer>
 
-        <FeedbackModal
-          isOpen={isFeedbackOpen}
-          onClose={() => setIsFeedbackOpen(false)}
-        />
+        <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
       </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

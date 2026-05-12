@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   RedCapIcon,
   WizardHatIcon,
@@ -223,6 +223,9 @@ const PROJECTS: Project[] = [
 const INVENTORY1_IDS = [1, 2, 7, 8, 9, 11, 12, 13];
 
 const Introduce: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter") || "hot";
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [equippedItem, setEquippedItem] = useState<Item | null>(null);
@@ -427,7 +430,7 @@ const Introduce: React.FC = () => {
 
       <div className="mt-12 mb-8">
         <Link
-          to="/"
+          to={`/?filter=${filter}`}
           className="text-xs font-black border-b-2 border-black hover:text-penguin-yellow transition-all uppercase"
         >
           ← Exit Shop
