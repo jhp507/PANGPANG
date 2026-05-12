@@ -105,15 +105,16 @@ function AppContent() {
         <FireButton />
         <TopButton />
 
-        <footer className="border-t py-8 mt-12 bg-white">
+        <footer className="py-8 mt-12">
           <div className="max-w-4xl mx-auto px-4 text-center">
+            <hr className="border-t-2 border-penguin-black/20 mb-8 mx-auto" style={{ maxWidth: '640px' }} />
             <button
               onClick={() => setIsFeedbackOpen(true)}
               className="mb-6 px-6 py-2 bg-penguin-black text-penguin-yellow rounded-full text-sm font-black hover:scale-105 transition-transform"
             >
               팽팽이에게 의견 보내기 🐧
             </button>
-            <p className="text-gray-400 text-[10px] font-bold tracking-widest uppercase">
+            <p className="text-penguin-black/60 text-[10px] font-bold tracking-widest uppercase">
               © 2024 MOJI. ALL RIGHTS RESERVED.
             </p>
           </div>
