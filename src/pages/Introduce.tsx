@@ -35,7 +35,7 @@ interface Item {
   icon: React.ReactNode;
 }
 
-const ITEMS: Item[] = [
+const ALL_ITEMS: Item[] = [
   { id: 1, name: "빨간 캡모자", description: "어디에나 잘 어울리는 기본 아이템! 열정적인 빨간색이 특징입니다.", icon: <RedCapIcon /> },
   { id: 2, name: "마법사 모자", description: "신비로운 힘이 깃든 모자입니다. 쓰고 있으면 지능이 올라갈 것 같아요.", icon: <WizardHatIcon /> },
   { id: 3, name: "황금 왕관", description: "진정한 리더를 위한 왕관. 반짝이는 황금빛이 권위를 상징합니다.", icon: <CrownIcon /> },
@@ -62,9 +62,14 @@ const ITEMS: Item[] = [
   { id: 24, name: "말하는 모자", description: "신비로운 마법의 힘으로 당신의 기숙사를 배정해줄 낡은 모자입니다. 모자 주름 사이로 얼굴 형상이 보여요!", icon: <SortingHatIcon /> },
 ];
 
+const INVENTORY1_IDS = [1, 2, 7, 8, 9, 11, 12, 13];
+
 const Introduce: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [equippedItem, setEquippedItem] = useState<Item | null>(null);
+
+  const ITEMS1 = ALL_ITEMS.filter((item) => INVENTORY1_IDS.includes(item.id));
+  const ITEMS2 = ALL_ITEMS.filter((item) => !INVENTORY1_IDS.includes(item.id));
 
   const handleEquip = (item: Item) => {
     setEquippedItem(item);
@@ -75,93 +80,55 @@ const Introduce: React.FC = () => {
     setEquippedItem(null);
   };
 
+  const renderInventory = (items: Item[], title: string, isDark: boolean = false) => (
+    <div className={`w-full border-[6px] border-black p-5 mb-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,0.1)] ${isDark ? 'bg-slate-300' : 'bg-gray-100'}`}>
+      <div className="mb-5 flex items-center justify-between border-b-4 border-black pb-3">
+        <h2 className="font-black text-base uppercase tracking-widest flex items-center gap-2">
+          <span className={`w-3 h-3 inline-block ${isDark ? 'bg-black' : 'bg-penguin-yellow'}`}></span>
+          {title}
+        </h2>
+      </div>
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+        {items.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setSelectedItem(item)}
+            className={`group aspect-square border-4 border-black transition-all flex items-center justify-center p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 active:bg-slate-200 ${isDark ? 'bg-slate-200' : 'bg-slate-100/80'} ${
+              equippedItem?.id === item.id ? "ring-4 ring-penguin-yellow ring-inset bg-penguin-yellow/20" : ""
+            }`}
+          >
+            <div className="w-full h-full transform group-hover:scale-110 transition-transform">{item.icon}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex flex-col items-center py-6 px-4 min-h-screen max-w-2xl mx-auto">
-      {/* 1. 최상단 제목 */}
       <div className="flex items-center justify-between w-full mb-8">
-        <h1
-          className="text-2xl font-black text-penguin-black tracking-tighter uppercase"
-          style={{ textShadow: "3px 3px 0px rgba(0,0,0,0.1)" }}
-        >
+        <h1 className="text-2xl font-black text-penguin-black tracking-tighter uppercase" style={{ textShadow: "3px 3px 0px rgba(0,0,0,0.1)" }}>
           MOJI MEMBER
         </h1>
-        <button
-          onClick={handleReset}
-          className="px-4 py-1 bg-white border-4 border-black text-[10px] font-black hover:bg-red-500 hover:text-white transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
-        >
+        <button onClick={handleReset} className="px-4 py-1 bg-white border-4 border-black text-[10px] font-black hover:bg-red-500 hover:text-white transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1">
           RESET
         </button>
       </div>
 
-      {/* 2. 상단: 캐릭터 영역 */}
       <div className="w-full flex flex-col items-center mb-10">
         <div className="relative w-44 h-44 bg-slate-50 border-[6px] border-black flex items-center justify-center shadow-[10px_10px_0px_0px_rgba(0,0,0,0.1)] mb-4">
           <div className="relative w-32 h-32 animate-bounce">
-            {equippedItem && (
-              <div className="absolute -top-4 left-0 w-full h-full z-10 transform scale-110">
-                {equippedItem.icon}
-              </div>
-            )}
+            {equippedItem && <div className="absolute -top-4 left-0 w-full h-full z-10 transform scale-110">{equippedItem.icon}</div>}
             <MouseIcon />
           </div>
-
           <div className="absolute bottom-4 w-24 h-4 bg-black/5 rounded-full blur-[2px]"></div>
-
-          <div className="absolute -top-1.5 -left-1.5 w-3 h-3 bg-black"></div>
-          <div className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-black"></div>
-          <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-black"></div>
-          <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-black"></div>
         </div>
-
-        <div className="flex flex-col items-center gap-2">
-          <div className="px-4 py-1 bg-black text-white text-[10px] font-black tracking-[0.3em] uppercase">
-            Hero Mouse
-          </div>
-          {equippedItem && (
-            <div className="text-[10px] font-bold text-penguin-yellow bg-black px-2 py-0.5 rounded-sm animate-pulse">
-              Equipped: {equippedItem.name}
-            </div>
-          )}
-        </div>
+        {equippedItem && <div className="text-[10px] font-bold text-penguin-yellow bg-black px-2 py-0.5 rounded-sm animate-pulse">Equipped: {equippedItem.name}</div>}
       </div>
 
-      {/* 3. 하단: 인벤토리 박스 */}
-      <div className="w-full bg-gray-100 border-[6px] border-black p-5 md:p-7 shadow-[12px_12px_0px_0px_rgba(0,0,0,0.1)]">
-        <div className="mb-5 flex items-center justify-between border-b-4 border-black pb-3">
-          <h2 className="font-black text-base uppercase tracking-widest flex items-center gap-2">
-            <span className="w-3 h-3 bg-penguin-yellow inline-block"></span>
-            Inventory
-          </h2>
-          <span className="text-[10px] font-bold text-gray-500 bg-white px-2 py-0.5 border-2 border-black">
-            {ITEMS.length} / 25
-          </span>
-        </div>
+      {renderInventory(ITEMS1, "Inventory 1", true)}
+      {renderInventory(ITEMS2, "Inventory 2", false)}
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-4">
-          {ITEMS.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setSelectedItem(item)}
-              className={`group aspect-square bg-slate-100/80 border-4 border-black transition-all flex items-center justify-center p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 active:bg-slate-200 ${
-                equippedItem?.id === item.id
-                  ? "ring-4 ring-penguin-yellow ring-inset bg-penguin-yellow/20"
-                  : ""
-              }`}
-            >
-              <div className="w-full h-full transform group-hover:scale-110 transition-transform">
-                {item.icon}
-              </div>
-            </button>
-          ))}
-          {Array.from({ length: Math.max(0, 25 - ITEMS.length) }).map((_, i) => (
-            <div key={`empty-${i}`} className="aspect-square bg-gray-200/40 border-4 border-black/10 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 bg-black/5 rotate-45"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 4. 모달 */}
       {selectedItem && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
           <div className="relative w-full max-w-[320px] bg-white border-[6px] border-black p-8 animate-in zoom-in duration-200 shadow-[16px_16px_0px_0px_rgba(0,0,0,0.3)]">
@@ -178,7 +145,6 @@ const Introduce: React.FC = () => {
         </div>
       )}
 
-      {/* 5. 링크 */}
       <div className="mt-12 mb-8"><Link to="/" className="text-xs font-black border-b-2 border-black hover:text-penguin-yellow transition-all uppercase">← Exit Shop</Link></div>
     </div>
   );
