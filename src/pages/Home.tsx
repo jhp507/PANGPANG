@@ -175,15 +175,6 @@ const Home: React.FC = () => {
             {tab.label}
           </button>
         ))}
-        <button
-          onClick={() => fetchPolls(true)}
-          disabled={isRefreshing}
-          className="px-5 py-2.5 rounded-full text-sm font-black bg-white text-penguin-black border border-gray-100 hover:bg-gray-100 transition-all flex items-center gap-1 group active:scale-95 disabled:opacity-50"
-          title="새로고침"
-        >
-          <span className={isRefreshing ? "animate-spin" : "group-active:animate-spin"}>🔄</span>
-          {isRefreshing ? "갱신 중..." : "새로고침"}
-        </button>
       </div>
 
       {polls.length === 0 ? (

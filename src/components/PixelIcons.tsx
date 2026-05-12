@@ -34,6 +34,11 @@ export const RedCapIcon = () => (
 // 2. 마법사 모자
 export const WizardHatIcon = () => (
   <PixelIconWrapper>
+    {/* 별 모양 포인트 */}
+    <rect x="12" y="1" width="1" height="1" fill="#FDE047" />
+    <rect x="11" y="2" width="3" height="1" fill="#FDE047" />
+    <rect x="12" y="3" width="1" height="1" fill="#FDE047" />
+    
     <path d="M11 3H14V5H16V7H18V9H20V11H4V9H6V7H8V5H10V3H11Z" fill="#4C1D95" />
     <path d="M11 4H13V6H15V8H17V10H7V8H9V6H11V4Z" fill="#7C3AED" />
     <rect x="3" y="11" width="18" height="3" fill="#5B21B6" />
