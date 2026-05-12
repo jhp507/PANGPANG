@@ -295,6 +295,18 @@ const Introduce: React.FC = () => {
         </button>
       </div>
 
+      {/* MOJI 소개 문구 */}
+      <div className="w-full mb-10 text-center px-2">
+        <p className="text-sm font-black text-penguin-black mb-2">
+          "재미있는 경험을 함께 만드는 곳, MOJI입니다."
+        </p>
+        <p className="text-[11px] font-bold text-gray-500 leading-relaxed">
+          우리는 더 즐거운 서비스를 고민합니다. <br />
+          앞으로 공개될 다양한 프로젝트들을 기대해주세요! <br />
+          마음에 드는 모자를 선택하세요! 🐧
+        </p>
+      </div>
+
       <div className="w-full flex flex-col items-center mb-10">
         <div className="relative w-44 h-44 bg-slate-50 border-[6px] border-black flex items-center justify-center shadow-[10px_10px_0px_0px_rgba(0,0,0,0.1)] mb-4">
           <div className="relative w-32 h-32 animate-bounce">
