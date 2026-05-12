@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, Link, useSearchParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useSearchParams,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import PollDetail from "./pages/PollDetail";
@@ -18,8 +24,10 @@ function AppContent() {
   const filter = searchParams.get("filter") || "hot";
 
   const [dimensions, setDimensions] = useState({
-    cols: typeof window !== "undefined" ? Math.ceil(window.innerWidth / 40) : 20,
-    rows: typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
+    cols:
+      typeof window !== "undefined" ? Math.ceil(window.innerWidth / 40) : 20,
+    rows:
+      typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
   });
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
@@ -68,8 +76,16 @@ function AppContent() {
       </div>
 
       <div className="min-h-screen flex flex-col text-penguin-black font-sans relative overflow-x-hidden">
-        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Left" className="bg-penguin-left z-10" />
-        <img src="/pangpang_logo_gbr.png" alt="Floating Penguin Right" className="bg-penguin-right z-10" />
+        <img
+          src="/pangpang_logo_gbr.png"
+          alt="Floating Penguin Left"
+          className="bg-penguin-left z-10"
+        />
+        <img
+          src="/pangpang_logo_gbr.png"
+          alt="Floating Penguin Right"
+          className="bg-penguin-right z-10"
+        />
 
         <header className="bg-penguin-black border-b border-white/10 sticky top-0 z-50 shadow-lg">
           <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -107,7 +123,10 @@ function AppContent() {
 
         <footer className="py-8 mt-12">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <hr className="border-t-2 border-penguin-black/20 mb-8 mx-auto" style={{ maxWidth: '640px' }} />
+            <hr
+              className="border-t-2 border-penguin-black/20 mb-8 mx-auto"
+              style={{ maxWidth: "640px" }}
+            />
             <button
               onClick={() => setIsFeedbackOpen(true)}
               className="mb-6 px-6 py-2 bg-penguin-black text-penguin-yellow rounded-full text-sm font-black hover:scale-105 transition-transform"
@@ -115,12 +134,15 @@ function AppContent() {
               팽팽이에게 의견 보내기 🐧
             </button>
             <p className="text-penguin-black/60 text-[10px] font-bold tracking-widest uppercase">
-              © 2024 MOJI. ALL RIGHTS RESERVED.
+              © 2026 MOJI. ALL RIGHTS RESERVED.
             </p>
           </div>
         </footer>
 
-        <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
+        <FeedbackModal
+          isOpen={isFeedbackOpen}
+          onClose={() => setIsFeedbackOpen(false)}
+        />
       </div>
     </>
   );
