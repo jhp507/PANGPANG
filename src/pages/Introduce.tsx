@@ -35,6 +35,14 @@ interface Item {
   icon: React.ReactNode;
 }
 
+interface Project {
+  id: number;
+  name: string;
+  description: string;
+  url: string;
+  imageUrl: string;
+}
+
 const ALL_ITEMS: Item[] = [
   {
     id: 1,
@@ -202,10 +210,21 @@ const ALL_ITEMS: Item[] = [
   },
 ];
 
+const PROJECTS: Project[] = [
+  {
+    id: 1,
+    name: "PANGPANG",
+    description: "모두가 함께 즐기는 커스텀 투표 서비스",
+    url: "https://pangpang-ruce.vercel.app/",
+    imageUrl: "/pangpang_logo_gbr.png",
+  },
+];
+
 const INVENTORY1_IDS = [1, 2, 7, 8, 9, 11, 12, 13];
 
 const Introduce: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [equippedItem, setEquippedItem] = useState<Item | null>(null);
 
   const ITEMS1 = ALL_ITEMS.filter((item) => INVENTORY1_IDS.includes(item.id));
@@ -293,14 +312,95 @@ const Introduce: React.FC = () => {
       </div>
 
       {renderInventory(ITEMS1, "MEMBER", true)}
-      {renderInventory(ITEMS2, "Inventory", false)}
+      {renderInventory(ITEMS2, "INVENTORY", false)}
+
+      {/* PROJECTS Section */}
+      <div className="w-full border-[6px] border-black p-5 mb-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,0.1)] bg-indigo-50">
+        <div className="mb-5 flex items-center justify-between border-b-4 border-black pb-3">
+          <h2 className="font-black text-base uppercase tracking-widest flex items-center gap-2">
+            <span className="w-3 h-3 inline-block bg-indigo-600"></span>
+            PROJECTS
+          </h2>
+        </div>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+          {PROJECTS.map((project) => (
+            <button
+              key={project.id}
+              onClick={() => setSelectedProject(project)}
+              className="aspect-square border-4 border-black bg-white flex flex-col items-center justify-center p-0 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] relative group overflow-hidden active:shadow-none active:translate-x-1 active:translate-y-1"
+            >
+              <img
+                src={project.imageUrl}
+                alt={project.name}
+                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-indigo-600/0 group-hover:bg-indigo-600/10 transition-colors" />
+              <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white text-[8px] font-black py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                {project.name}
+              </div>
+            </button>
+          ))}
+          {[...Array(10 - PROJECTS.length)].map((_, i) => (
+            <div
+              key={`empty-${i}`}
+              className="aspect-square border-4 border-black bg-white/40 border-dashed flex flex-col items-center justify-center p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] relative group overflow-hidden cursor-help"
+            >
+              <div className="text-[10px] font-black text-indigo-300 group-hover:text-indigo-600 transition-colors uppercase tracking-tighter">
+                Empty
+              </div>
+              <div className="absolute top-1 right-1 text-[8px] font-bold text-indigo-200">
+                0{PROJECTS.length + i + 1}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Project Detail Modal */}
+      {selectedProject && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="relative w-full max-w-[320px] bg-white border-[6px] border-black p-8 pt-12 animate-in zoom-in duration-200 shadow-[16px_16px_0px_0px_rgba(0,0,0,0.3)]">
+            <button
+              onClick={() => setSelectedProject(null)}
+              className="absolute top-3 right-3 w-8 h-8 font-black text-2xl hover:text-red-500 z-10"
+            >
+              ×
+            </button>
+            <div className="flex flex-col">
+              <div className="w-full aspect-square bg-slate-100 border-4 border-black overflow-hidden mb-6">
+                <img
+                  src={selectedProject.imageUrl}
+                  alt={selectedProject.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="mb-6 text-center">
+                <h3 className="text-xl font-black mb-2 inline-block border-b-4 border-indigo-500">
+                  {selectedProject.name}
+                </h3>
+                <p className="text-xs font-bold text-gray-600 leading-relaxed">
+                  {selectedProject.description}
+                </p>
+              </div>
+              <a
+                href={selectedProject.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 bg-indigo-600 text-white text-center font-black hover:bg-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+              >
+                VISIT SITE
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {selectedItem && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="relative w-full max-w-[320px] bg-white border-[6px] border-black p-8 animate-in zoom-in duration-200 shadow-[16px_16px_0px_0px_rgba(0,0,0,0.3)]">
+          <div className="relative w-full max-w-[320px] bg-white border-[6px] border-black p-8 pt-12 animate-in zoom-in duration-200 shadow-[16px_16px_0px_0px_rgba(0,0,0,0.3)]">
             <button
               onClick={() => setSelectedItem(null)}
-              className="absolute top-2 right-2 w-8 h-8 font-black text-2xl hover:text-red-500"
+              className="absolute top-3 right-3 w-8 h-8 font-black text-2xl hover:text-red-500"
             >
               ×
             </button>
