@@ -220,7 +220,7 @@ const PROJECTS: Project[] = [
   },
 ];
 
-const INVENTORY1_IDS = [1, 2, 7, 8, 9, 11, 12, 13];
+const INVENTORY1_IDS = [1, 2, 6, 7, 8, 9, 11, 12, 13];
 
 const Introduce: React.FC = () => {
   const [searchParams] = useSearchParams();
