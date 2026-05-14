@@ -21,7 +21,7 @@ const FeedbackModal: React.FC<Props> = ({ isOpen, onClose }) => {
       .insert([{ voter_id: voterId, content: feedback }]);
 
     if (error) {
-      console.error("Feedback error: ", error);
+      console.error("Feedback error:", error);
       alert("전송 중 문제가 발생했습니다. 다시 시도해 주세요.");
     } else {
       alert("소중한 의견이 팽팽이에게 전달되었습니다! 🐧");
