@@ -18,6 +18,7 @@ import LogoLink from "./components/LogoLink";
 import FireButton from "./components/FireButton";
 import TopButton from "./components/TopButton";
 import FeedbackModal from "./components/FeedbackModal";
+import FeatureNoticeModal from "./components/FeatureNoticeModal";
 
 function AppContent() {
   const [searchParams] = useSearchParams();
@@ -30,6 +31,7 @@ function AppContent() {
       typeof window !== "undefined" ? Math.ceil(window.innerHeight / 30) : 20,
   });
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [isManualNoticeOpen, setIsManualNoticeOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -127,12 +129,20 @@ function AppContent() {
               className="border-t-2 border-penguin-black/20 mb-8 mx-auto"
               style={{ maxWidth: "640px" }}
             />
-            <button
-              onClick={() => setIsFeedbackOpen(true)}
-              className="mb-6 px-6 py-2 bg-penguin-black text-penguin-yellow rounded-full text-sm font-black hover:scale-105 transition-transform"
-            >
-              팽팽이에게 의견 보내기 🐧
-            </button>
+            <div className="flex flex-wrap justify-center gap-3 mb-6">
+              <button
+                onClick={() => setIsManualNoticeOpen(true)}
+                className="px-6 py-2 bg-penguin-yellow text-penguin-black rounded-full text-sm font-black hover:scale-105 transition-transform shadow-sm"
+              >
+                🎉 신규 기능 안내 소식
+              </button>
+              <button
+                onClick={() => setIsFeedbackOpen(true)}
+                className="px-6 py-2 bg-penguin-black text-penguin-yellow rounded-full text-sm font-black hover:scale-105 transition-transform"
+              >
+                팽팽이에게 의견 보내기 🐧
+              </button>
+            </div>
             <p className="text-penguin-black/60 text-[10px] font-bold tracking-widest uppercase">
               © 2026 MOJI. ALL RIGHTS RESERVED.
             </p>
@@ -142,6 +152,11 @@ function AppContent() {
         <FeedbackModal
           isOpen={isFeedbackOpen}
           onClose={() => setIsFeedbackOpen(false)}
+        />
+
+        <FeatureNoticeModal
+          forceOpen={isManualNoticeOpen}
+          onCloseCallback={() => setIsManualNoticeOpen(false)}
         />
       </div>
     </>
