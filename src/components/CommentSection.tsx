@@ -78,6 +78,8 @@ const CommentSection: React.FC<CommentSectionProps> = ({ pollId }) => {
       if (error) throw error;
 
       // 폼 초기화 및 목록 새로고침
+      setNickname("");
+      setPassword("");
       setContent("");
       fetchComments();
     } catch (err: any) {
