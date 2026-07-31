@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { supabase } from "../lib/supabase";
 import { formatRelativeTime } from "../lib/utils";
 
@@ -277,85 +278,88 @@ const CommentSection: React.FC<CommentSectionProps> = ({ pollId }) => {
         </div>
       )}
 
-      {/* 비밀번호 인증 / 수정 모달 */}
-      {activeComment && actionType && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl border border-gray-100 space-y-5">
-            <div className="flex justify-between items-center">
-              <h3 className="font-black text-base md:text-lg text-penguin-black">
-                {actionType === "edit" ? "✏️ 댓글 수정" : "🗑️ 댓글 삭제"}
-              </h3>
-              <button
-                onClick={closeAuthModal}
-                className="text-gray-400 hover:text-penguin-black font-black text-sm p-1"
-              >
-                ✕
-              </button>
-            </div>
+      {/* 비밀번호 인증 / 수정 모달 (React Portal로 document.body에 직접 렌더링하여 전체 화면 백드롭 적용) */}
+      {activeComment &&
+        actionType &&
+        createPortal(
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl border border-gray-100 space-y-5">
+              <div className="flex justify-between items-center">
+                <h3 className="font-black text-base md:text-lg text-penguin-black">
+                  {actionType === "edit" ? "✏️ 댓글 수정" : "🗑️ 댓글 삭제"}
+                </h3>
+                <button
+                  onClick={closeAuthModal}
+                  className="text-gray-400 hover:text-penguin-black font-black text-sm p-1"
+                >
+                  ✕
+                </button>
+              </div>
 
-            <form onSubmit={handleAuthSubmit} className="space-y-4">
-              {actionType === "edit" && (
+              <form onSubmit={handleAuthSubmit} className="space-y-4">
+                {actionType === "edit" && (
+                  <div>
+                    <label className="block text-xs font-black text-penguin-black mb-1">
+                      수정할 댓글 내용
+                    </label>
+                    <textarea
+                      required
+                      rows={3}
+                      maxLength={300}
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      className="w-full p-3 bg-penguin-gray border-none rounded-xl font-bold text-xs md:text-sm text-penguin-black focus:ring-2 focus:ring-penguin-yellow transition-all resize-none"
+                    />
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-xs font-black text-penguin-black mb-1">
-                    수정할 댓글 내용
+                    작성 시 입력한 비밀번호
                   </label>
-                  <textarea
+                  <input
+                    type="password"
                     required
-                    rows={3}
-                    maxLength={300}
-                    value={editContent}
-                    onChange={(e) => setEditContent(e.target.value)}
-                    className="w-full p-3 bg-penguin-gray border-none rounded-xl font-bold text-xs md:text-sm text-penguin-black focus:ring-2 focus:ring-penguin-yellow transition-all resize-none"
+                    value={authPassword}
+                    onChange={(e) => setAuthPassword(e.target.value)}
+                    placeholder="비밀번호 입력"
+                    className="w-full px-4 py-3 bg-penguin-gray border-none rounded-xl font-bold text-xs md:text-sm text-penguin-black focus:ring-2 focus:ring-penguin-yellow transition-all"
                   />
                 </div>
-              )}
 
-              <div>
-                <label className="block text-xs font-black text-penguin-black mb-1">
-                  작성 시 입력한 비밀번호
-                </label>
-                <input
-                  type="password"
-                  required
-                  value={authPassword}
-                  onChange={(e) => setAuthPassword(e.target.value)}
-                  placeholder="비밀번호 입력"
-                  className="w-full px-4 py-3 bg-penguin-gray border-none rounded-xl font-bold text-xs md:text-sm text-penguin-black focus:ring-2 focus:ring-penguin-yellow transition-all"
-                />
-              </div>
+                {authError && (
+                  <p className="text-xs font-bold text-red-500">{authError}</p>
+                )}
 
-              {authError && (
-                <p className="text-xs font-bold text-red-500">{authError}</p>
-              )}
-
-              <div className="flex gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={closeAuthModal}
-                  className="flex-1 py-3 bg-penguin-gray text-penguin-black rounded-xl text-xs font-black hover:bg-gray-200 transition-all"
-                >
-                  취소
-                </button>
-                <button
-                  type="submit"
-                  disabled={authLoading}
-                  className={`flex-1 py-3 rounded-xl text-xs font-black transition-all ${
-                    actionType === "delete"
-                      ? "bg-red-500 text-white hover:bg-red-600"
-                      : "bg-penguin-yellow text-penguin-black hover:bg-penguin-black hover:text-penguin-yellow"
-                  }`}
-                >
-                  {authLoading
-                    ? "처리 중..."
-                    : actionType === "edit"
-                    ? "수정 완료"
-                    : "삭제하기"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+                <div className="flex gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={closeAuthModal}
+                    className="flex-1 py-3 bg-penguin-gray text-penguin-black rounded-xl text-xs font-black hover:bg-gray-200 transition-all"
+                  >
+                    취소
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={authLoading}
+                    className={`flex-1 py-3 rounded-xl text-xs font-black transition-all ${
+                      actionType === "delete"
+                        ? "bg-red-500 text-white hover:bg-red-600"
+                        : "bg-penguin-yellow text-penguin-black hover:bg-penguin-black hover:text-penguin-yellow"
+                    }`}
+                  >
+                    {authLoading
+                      ? "처리 중..."
+                      : actionType === "edit"
+                      ? "수정 완료"
+                      : "삭제하기"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 };
