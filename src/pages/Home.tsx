@@ -27,10 +27,21 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showFire, setShowFire] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
   useEffect(() => {
     fetchPolls();
   }, []);
+
+  // 검색어 입력 시 300ms 디바운스(Debounce/Throttling 효과) 적용
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   const fetchPolls = async (isManualRefresh = false) => {
     if (isManualRefresh) {
@@ -93,7 +104,20 @@ const Home: React.FC = () => {
     }
   };
   const getSortedPolls = () => {
-    const sorted = [...polls];
+    let sorted = [...polls];
+
+    // 디바운스된 검색어로 필터링 (제목 및 선택지 옵션 텍스트 대상, 공백 무시)
+    if (debouncedSearchTerm.trim()) {
+      const normalizedTerm = debouncedSearchTerm.replace(/\s+/g, "").toLowerCase();
+      sorted = sorted.filter((p) => {
+        const titleMatch = p.title.replace(/\s+/g, "").toLowerCase().includes(normalizedTerm);
+        const optionsMatch = p.options.some((opt) =>
+          opt.option_text.replace(/\s+/g, "").toLowerCase().includes(normalizedTerm),
+        );
+        return titleMatch || optionsMatch;
+      });
+    }
+
     if (filter === "hot") {
       return sorted.sort((a, b) => {
         const getIsHot = (p: Poll) =>
@@ -143,7 +167,7 @@ const Home: React.FC = () => {
   return (
     <div className="py-4">
       <TypewriterTitle />
-      <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
         {[
           {
             id: "hot",
@@ -177,12 +201,55 @@ const Home: React.FC = () => {
         ))}
       </div>
 
+      {/* 카테고리 뱃지 하단 투표 제목 및 선택지 키워드 검색 필터 */}
+      <div className="mb-8">
+        <div className="relative flex items-center">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-base md:text-lg z-10 pointer-events-none select-none">
+            🔍
+          </span>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="투표 제목 또는 선택지(옵션)로 검색..."
+            className="w-full pl-11 pr-10 py-3.5 bg-white/80 backdrop-blur-[2px] rounded-2xl border-2 border-gray-100 focus:border-penguin-yellow focus:bg-white focus:outline-none transition-all font-bold text-sm text-penguin-black shadow-sm placeholder:text-gray-400 placeholder:font-bold"
+          />
+          {searchTerm && (
+            <button
+              onClick={() => {
+                setSearchTerm("");
+                setDebouncedSearchTerm("");
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-gray-400 hover:text-penguin-black font-black text-sm p-1 rounded-full hover:bg-gray-100 transition-all"
+              title="검색어 지우기"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+      </div>
+
       {polls.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100">
+        <div className="text-center py-20 px-6 md:px-10 bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100">
           <p className="text-gray-400 font-bold">
             아직 생성된 투표가 없습니다.
             <br />첫 번째 투표를 만들어보세요! 🐧
           </p>
+        </div>
+      ) : getSortedPolls().length === 0 ? (
+        <div className="text-center py-16 px-6 md:px-10 bg-white/80 backdrop-blur-[2px] rounded-[2.5rem] border-2 border-dashed border-gray-200">
+          <p className="text-gray-500 font-bold leading-relaxed">
+            '<span className="text-penguin-black font-black">{debouncedSearchTerm || searchTerm}</span>' 키워드가 포함된 투표가 없습니다. 🐧
+          </p>
+          <button
+            onClick={() => {
+              setSearchTerm("");
+              setDebouncedSearchTerm("");
+            }}
+            className="mt-4 px-5 py-2.5 bg-penguin-gray text-penguin-black rounded-xl text-xs font-black hover:bg-penguin-yellow transition-all shadow-sm"
+          >
+            전체 목록 보기
+          </button>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
