@@ -243,41 +243,112 @@ const PollDetail: React.FC = () => {
         )}
 
         {!myVote ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mt-6 md:mt-8">
-            {poll.options.map((option, index) => (
-              <button
-                key={option.id}
-                disabled={voting || !!pendingVoteId}
-                onClick={() => handleVoteClick(option.id)}
-                className={`group relative p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] text-left hover:scale-[1.03] transition-all shadow-xl overflow-hidden ${
-                  index === 0
-                    ? "bg-penguin-black shadow-black/20"
-                    : "bg-penguin-yellow shadow-penguin-yellow/30"
-                }`}
-              >
-                <span
-                  className={`text-[9px] font-black uppercase tracking-widest mb-2 block ${
-                    index === 0 ? "text-penguin-yellow" : "text-penguin-black"
+          <div className="space-y-8 mt-6 md:mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
+              {poll.options.map((option, index) => (
+                <button
+                  key={option.id}
+                  disabled={voting || !!pendingVoteId}
+                  onClick={() => handleVoteClick(option.id)}
+                  className={`group relative p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] text-left hover:scale-[1.03] transition-all shadow-xl overflow-hidden ${
+                    index === 0
+                      ? "bg-penguin-black shadow-black/20"
+                      : "bg-penguin-yellow shadow-penguin-yellow/30"
                   }`}
                 >
-                  Option {String.fromCharCode(65 + index)}
-                </span>
-                <p
-                  className={`font-black text-base md:text-xl leading-snug relative z-10 ${
-                    index === 0 ? "text-penguin-yellow" : "text-penguin-black"
-                  }`}
-                >
-                  {option.option_text}
-                </p>
-                <span
-                  className={`absolute -right-4 -bottom-4 text-7xl md:text-9xl opacity-10 font-black italic ${
-                    index === 0 ? "text-white" : "text-penguin-black"
-                  }`}
-                >
-                  {String.fromCharCode(65 + index)}
-                </span>
-              </button>
-            ))}
+                  <span
+                    className={`text-[9px] font-black uppercase tracking-widest mb-2 block ${
+                      index === 0 ? "text-penguin-yellow" : "text-penguin-black"
+                    }`}
+                  >
+                    Option {String.fromCharCode(65 + index)}
+                  </span>
+                  <p
+                    className={`font-black text-base md:text-xl leading-snug relative z-10 ${
+                      index === 0 ? "text-penguin-yellow" : "text-penguin-black"
+                    }`}
+                  >
+                    {option.option_text}
+                  </p>
+                  <span
+                    className={`absolute -right-4 -bottom-4 text-7xl md:text-9xl opacity-10 font-black italic ${
+                      index === 0 ? "text-white" : "text-penguin-black"
+                    }`}
+                  >
+                    {String.fromCharCode(65 + index)}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* 아직 투표하지 않은 경우에도 목록과 동일한 실시간 투표 현황 UI 표시 */}
+            {poll.options.length >= 2 && (() => {
+              const optA = poll.options[0];
+              const optB = poll.options[1];
+              const percentA =
+                total > 0 ? Math.round((optA.vote_count / total) * 100) : 50;
+              const percentB = 100 - percentA;
+
+              return (
+                <div className="pt-6 border-t border-gray-100/80 space-y-4">
+                  <div className="flex justify-between items-center px-1">
+                    <span className="text-xs md:text-sm font-black text-gray-400 uppercase tracking-wider">
+                      📊 현재 투표 현황
+                    </span>
+                    <span className="text-xs md:text-sm font-black text-gray-400">
+                      {total}명 참여
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between gap-4 px-1">
+                    <span className="text-penguin-black font-black text-xs md:text-sm line-clamp-1 flex-1">
+                      {optA.option_text}
+                    </span>
+                    <span className="text-penguin-black font-black text-xs md:text-sm line-clamp-1 flex-1 text-right">
+                      {optB.option_text}
+                    </span>
+                  </div>
+
+                  <div className="w-full bg-gray-100 h-9 md:h-10 rounded-2xl overflow-hidden flex shadow-inner border-2 border-gray-50">
+                    <div
+                      className="bg-penguin-black h-full transition-all duration-1000 flex items-center px-4"
+                      style={{ width: `${percentA}%` }}
+                    >
+                      <span className="text-xs md:text-sm font-black text-penguin-yellow italic">
+                        A
+                      </span>
+                    </div>
+                    <div
+                      className="bg-penguin-yellow h-full transition-all duration-1000 flex items-center justify-end px-4"
+                      style={{ width: `${percentB}%` }}
+                    >
+                      <span className="text-xs md:text-sm font-black text-penguin-black italic">
+                        B
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between px-1 text-penguin-black items-start h-10">
+                    <div className="flex flex-col items-start">
+                      <span className="text-sm md:text-base font-black leading-none">
+                        {optA.vote_count}표
+                      </span>
+                      <span className="text-[10px] md:text-xs font-bold text-gray-400 mt-1">
+                        ({percentA}%)
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-end">
+                      <span className="text-sm md:text-base font-black leading-none">
+                        {optB.vote_count}표
+                      </span>
+                      <span className="text-[10px] md:text-xs font-bold text-gray-400 mt-1">
+                        ({percentB}%)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         ) : (
           <div className="space-y-8 md:space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
