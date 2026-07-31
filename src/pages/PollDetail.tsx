@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom"
 import { supabase } from "../lib/supabase";
 import { formatRelativeTime } from "../lib/utils";
 import HighFiveAnimation from "../components/HighFiveAnimation";
+import CommentSection from "../components/CommentSection";
 
 interface PollOption {
   id: string;
@@ -428,6 +429,9 @@ const PollDetail: React.FC = () => {
           <span>🔗 링크 복사</span>
         </button>
       </div>
+
+      {/* 댓글 섹션 */}
+      <CommentSection pollId={poll.id} />
     </div>
   );
 };

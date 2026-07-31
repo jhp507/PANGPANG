@@ -41,13 +41,26 @@
 | `voter_id` | `uuid` | NOT NULL | 투표자 고유 식별자 (LocalStorage UUID) |
 | `created_at` | `timestamptz` | Default: `now()` | 투표 일시 |
 
+### 💬 `poll_comments` (투표 댓글)
+비회원 사용자들이 특정 투표에 닉네임과 비밀번호를 사용하여 자유롭게 작성하는 댓글 목록입니다.
+
+| 컬럼명 | 타입 | 제약 조건 | 설명 |
+| :--- | :--- | :--- | :--- |
+| `id` | `uuid` | PK, Default: `gen_random_uuid()` | 댓글 고유 ID |
+| `poll_id` | `uuid` | FK (`polls.id`), ON DELETE CASCADE | 소속된 투표 ID |
+| `nickname` | `text` | NOT NULL | 작성자 닉네임 |
+| `password` | `text` | NOT NULL | 댓글 수정/삭제용 비밀번호 |
+| `content` | `text` | NOT NULL | 댓글 내용 |
+| `created_at` | `timestamptz` | Default: `now()` | 작성 일시 |
+| `updated_at` | `timestamptz` | Default: `now()` | 수정 일시 |
+
 ---
 
 ## 2. 주요 비즈니스 규칙
 
-### 🔐 작성자 인증 및 관리
-- **익명성 보장**: 별도의 회원가입 없이 `admin_id`와 `password`만으로 본인이 생성한 투표를 관리합니다.
-- **보안**: 수정/삭제 요청 시 전달된 ID/PW와 DB 값을 비교하여 권한을 검증합니다.
+### 🔐 작성자 및 댓글 인증 관리
+- **익명성 보장**: 별도의 회원가입 없이 `admin_id`/`password`로 투표를 관리하고, `nickname`/`password`로 본인의 댓글을 수정/삭제합니다.
+- **보안**: 댓글 수정/삭제 요청 시 전달된 비밀번호와 DB 값을 비교하여 권한을 검증합니다.
 
 ### 🚫 1인 1표 정책 (중복 투표 방지)
 - **제약 조건**: `unique(poll_id, voter_id)` 설정을 통해 동일한 사용자가 한 투표에 여러 번 참여하는 것을 DB 수준에서 차단합니다.
@@ -99,18 +112,32 @@ CREATE TABLE IF NOT EXISTS votes (
   UNIQUE(poll_id, voter_id) -- 1인 1표 핵심 제약 조건
 );
 
--- 4. 성능 최적화를 위한 인덱스 생성
+-- 4. 투표 댓글 테이블 생성
+CREATE TABLE IF NOT EXISTS poll_comments (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  poll_id UUID REFERENCES polls(id) ON DELETE CASCADE NOT NULL,
+  nickname TEXT NOT NULL,
+  password TEXT NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT now() NOT NULL
+);
+
+-- 5. 성능 최적화를 위한 인덱스 생성
 CREATE INDEX IF NOT EXISTS idx_polls_status ON polls(status);
 CREATE INDEX IF NOT EXISTS idx_votes_voter ON votes(voter_id);
 CREATE INDEX IF NOT EXISTS idx_poll_options_poll_id ON poll_options(poll_id);
+CREATE INDEX IF NOT EXISTS idx_poll_comments_poll_id ON poll_comments(poll_id, created_at DESC);
 
--- 5. Row Level Security (RLS) 설정 (선택 사항)
+-- 6. Row Level Security (RLS) 설정 (선택 사항)
 -- 비회원 서비스이므로 모든 사용자가 읽고 쓸 수 있도록 기본 정책을 열어둡니다.
 ALTER TABLE polls ENABLE ROW LEVEL SECURITY;
 ALTER TABLE poll_options ENABLE ROW LEVEL SECURITY;
 ALTER TABLE votes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE poll_comments ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Allow public access to polls" ON polls FOR ALL USING (true);
 CREATE POLICY "Allow public access to poll_options" ON poll_options FOR ALL USING (true);
 CREATE POLICY "Allow public access to votes" ON votes FOR ALL USING (true);
+CREATE POLICY "Allow public access to poll_comments" ON poll_comments FOR ALL USING (true);
 ```
